@@ -2,7 +2,6 @@ D:\ngaly\TP-GK\git\gk-poe_tp\WebApplication\SiteMVC\bin\Debug\netcoreapp3.1\apps
 D:\ngaly\TP-GK\git\gk-poe_tp\WebApplication\SiteMVC\bin\Debug\netcoreapp3.1\appsettings.json
 D:\ngaly\TP-GK\git\gk-poe_tp\WebApplication\SiteMVC\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 D:\ngaly\TP-GK\git\gk-poe_tp\WebApplication\SiteMVC\bin\Debug\netcoreapp3.1\SiteMVC.exe
-D:\ngaly\TP-GK\git\gk-poe_tp\WebApplication\SiteMVC\obj\Debug\netcoreapp3.1\SiteMVC.csprojAssemblyReference.cache
 D:\ngaly\TP-GK\git\gk-poe_tp\WebApplication\SiteMVC\obj\Debug\netcoreapp3.1\SiteMVC.AssemblyInfoInputs.cache
 D:\ngaly\TP-GK\git\gk-poe_tp\WebApplication\SiteMVC\obj\Debug\netcoreapp3.1\SiteMVC.AssemblyInfo.cs
 D:\ngaly\TP-GK\git\gk-poe_tp\WebApplication\SiteMVC\obj\Debug\netcoreapp3.1\SiteMVC.RazorAssemblyInfo.cache
