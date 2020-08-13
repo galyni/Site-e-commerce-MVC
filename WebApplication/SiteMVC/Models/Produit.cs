@@ -12,7 +12,7 @@ namespace SiteMVC
             Photo = new HashSet<Photo>();
         }
 
-        public int IdProduit { get; set; }
+        public int Id { get; set; }
         public string Nom { get; set; }
         public decimal PrixUnitaire { get; set; }
         public decimal? Hauteur { get; set; }

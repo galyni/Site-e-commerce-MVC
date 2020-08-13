@@ -10,7 +10,7 @@ namespace SiteMVC
             Commande = new HashSet<Commande>();
         }
 
-        public int IdStatut { get; set; }
+        public int Id { get; set; }
         public string Nom { get; set; }
 
         public virtual ICollection<Commande> Commande { get; set; }

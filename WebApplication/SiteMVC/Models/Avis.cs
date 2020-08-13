@@ -5,7 +5,7 @@ namespace SiteMVC
 {
     public partial class Avis
     {
-        public int IdAvis { get; set; }
+        public int Id { get; set; }
         public int IdClient { get; set; }
         public int IdProduit { get; set; }
         public byte Note { get; set; }

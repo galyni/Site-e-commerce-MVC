@@ -10,7 +10,7 @@ namespace SiteMVC
             Produit = new HashSet<Produit>();
         }
 
-        public int IdFabricant { get; set; }
+        public int Id { get; set; }
         public string Nom { get; set; }
 
         public virtual ICollection<Produit> Produit { get; set; }

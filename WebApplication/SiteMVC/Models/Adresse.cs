@@ -12,7 +12,7 @@ namespace SiteMVC
             Fournisseur = new HashSet<Fournisseur>();
         }
 
-        public int IdAdresse { get; set; }
+        public int Id { get; set; }
         public int Numero { get; set; }
         public string Rue { get; set; }
         public string CodePostal { get; set; }

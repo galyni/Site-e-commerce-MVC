@@ -5,6 +5,7 @@ namespace SiteMVC
 {
     public partial class DetailCommande
     {
+        public int Id { get; set; }
         public int IdCommande { get; set; }
         public int IdProduit { get; set; }
         public decimal PrixUnitaire { get; set; }

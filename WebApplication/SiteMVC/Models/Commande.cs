@@ -10,7 +10,7 @@ namespace SiteMVC
             DetailCommande = new HashSet<DetailCommande>();
         }
 
-        public int IdCommande { get; set; }
+        public int Id { get; set; }
         public int IdClient { get; set; }
         public DateTime DateCommande { get; set; }
         public DateTime? DateLivraison { get; set; }
