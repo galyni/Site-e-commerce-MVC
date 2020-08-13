@@ -21,7 +21,7 @@ namespace SiteMVC {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            services.AddTransient<IRepository<Produit>, Repository<Produit>>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<TireliresContext>(options => options.UseSqlServer(connectionString));
             services.AddControllersWithViews();
@@ -49,7 +49,7 @@ namespace SiteMVC {
 
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Tirelires}/{action=Index}/{id?}");
+                    pattern: "{controller=Couleurs}/{action=Index}/{id?}");
             });
         }
     }

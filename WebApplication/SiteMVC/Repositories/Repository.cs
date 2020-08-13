@@ -27,8 +27,15 @@ namespace SiteMVC.Repositories {
         }
 
         public void Delete(int id) {
-            Produit produit = _context.Produit.SingleOrDefault(p => p.Id == id);
-            _context.Produit.Remove(produit);
+            T item = table.Find(id);
+            table.Remove(item);
+            _context.SaveChanges();
+        }
+
+        public void Update(T item) {
+            table.Update(item);
+            //table.Attach(item);
+            //_context.Entry(item).State = EntityState.Modified;
             _context.SaveChanges();
         }
     }

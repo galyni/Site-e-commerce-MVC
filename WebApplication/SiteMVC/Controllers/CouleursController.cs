@@ -7,35 +7,28 @@ using Microsoft.AspNetCore.Mvc;
 using SiteMVC.Repositories;
 
 namespace SiteMVC.Controllers {
-    public class TireliresController : Controller {
-        IRepository<Produit> _repository;
-
-        public TireliresController(IRepository<Produit> produitRepository) {
-            _repository = produitRepository;
+    public class CouleursController : Controller {
+        IRepository<Couleur> _repository;
+        public CouleursController(IRepository<Couleur> repository) {
+            _repository = repository;
         }
-
-        // GET: Tirelires
-        public IActionResult Index() {
-            //var tireliresContext = _context.Produit.Include(p => p.IdCategorieNavigation).Include(p => p.IdCouleurNavigation).Include(p => p.IdFabricantNavigation).Include(p => p.IdFournisseurNavigation);
+        // GET: Couleurs
+        public ActionResult Index() {
             var liste = _repository.GetList();
             return View(liste);
         }
 
-
-        public ActionResult Details(int id) {
-            return View(_repository.GetById(id));
-        }
-
-
-        public ActionResult Create() {
+        // GET: Couleurs/Create
+        public ActionResult Create(int id) {
             return View();
         }
 
+        // POST: Couleurs/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Produit produit) {
+        public ActionResult Create(Couleur couleur) {
             try {
-                _repository.Create(produit);
+                _repository.Create(couleur);
                 return RedirectToAction(nameof(Index));
             }
             catch {
@@ -43,14 +36,18 @@ namespace SiteMVC.Controllers {
             }
         }
 
+        // GET: Couleurs/Edit/5
         public ActionResult Edit(int id) {
-            return View(_repository.GetById(id));
+            Couleur couleur = _repository.GetById(id);
+            return View(couleur);
         }
 
+        // POST: Couleurs/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection) {
+        public ActionResult Edit(int id, Couleur couleur) {
             try {
+                _repository.Update(id, couleur);
                 return RedirectToAction(nameof(Index));
             }
             catch {
@@ -58,14 +55,17 @@ namespace SiteMVC.Controllers {
             }
         }
 
+        // GET: Couleurs/Delete/5
         public ActionResult Delete(int id) {
-            return View(_repository.GetById(id));
+            return View();
         }
 
+        // POST: Couleurs/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection) {
             try {
+                _repository.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
             catch {
