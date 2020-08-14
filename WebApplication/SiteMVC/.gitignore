@@ -6,3 +6,4 @@ DataAccess/
 obj/
 Properties/
 wwwroot/
+node_modules/
