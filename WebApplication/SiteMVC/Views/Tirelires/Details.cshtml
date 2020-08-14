@@ -54,10 +54,25 @@
             </dd>
     </dl>
 </div>
-<div class="photo-display">                                         @*A changer ?*@
-    <img class="photo-display-img" src="@ViewBag.Photo" />      @*Classe ?*@
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<div class="photo-display">
+    @*A changer ?*@
+    <button type="button" data-toggle="modal" data-target="#modalPhoto"><img class="photo-display-img" src="@ViewBag.Photo" /></button>               @*Classe ?*@
+
+    <!-- Modal -->
+    <div id="modalPhoto" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img class="photo-display-img" src="@ViewBag.Photo" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*la modale appelée par le trigger*@
+
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
