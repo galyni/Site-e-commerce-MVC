@@ -21,9 +21,12 @@ namespace SiteMVC.Controllers {
         public IActionResult Index() {
             //var tireliresContext = _context.Produit.Include(p => p.IdCategorieNavigation).Include(p => p.IdCouleurNavigation).Include(p => p.IdFabricantNavigation).Include(p => p.IdFournisseurNavigation);
             var liste = _repository.GetList();
+            foreach (Produit p in liste) {
+                //_repository.GetPhoto(p);
+                    }
             return View(liste);
         }
-
+        
 
         public ActionResult Details(int id) {
             ViewBag.Photo = new Repository<Photo>().GetById(id).Image;

@@ -11,7 +11,7 @@
 </p>
 @foreach (var item in Model) {
 <div>
-    <a asp-action="Details" asp-route-id="@item.Id"><img class="" src="@Url.Action("GetImage", new { id = item.Id })" /></a>     @*Classe ?*@
+    <a asp-action="Details" asp-route-id="@item.Id"><img class="" src="@item.Photo.First().Image" /></a>     @*Classe ?*@
 </div>
 }
 
