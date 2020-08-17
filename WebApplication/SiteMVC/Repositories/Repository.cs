@@ -24,6 +24,7 @@ namespace SiteMVC.Repositories {
 
         public void Create(T item) {        // Mettre du vrai code
             table.Add(item);
+            //_context.Set<T>().Add(item);
             _context.SaveChanges();
         }
 
