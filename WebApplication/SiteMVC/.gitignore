@@ -2,7 +2,6 @@
 *.csproj
 *.csproj.user
 bin/
-DataAccess/
 obj/
 Properties/
 wwwroot/
