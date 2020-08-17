@@ -80,8 +80,9 @@ namespace SiteMVC.Controllers {
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection) {
+        public ActionResult Edit(int id, Produit produit) {
             try {
+                _repository.Update(produit);
                 return RedirectToAction(nameof(Index));
             }
             catch {
