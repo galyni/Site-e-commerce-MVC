@@ -34,9 +34,9 @@ namespace SiteMVC.Repositories {
         }
 
         public void Update(T item) {
-            table.Update(item);
-            //table.Attach(item);
-            //_context.Entry(item).State = EntityState.Modified;
+            //table.Update(item);
+            table.Attach(item);
+            _context.Entry(item).State = EntityState.Modified;
             _context.SaveChanges();
         }
     }
