@@ -71,8 +71,10 @@
     </div>
 
     @*la modale appelée par le trigger*@
-
+    
+ <!-- TODO:affichage et acces conditionné aux droits -->
     <div>
+        <a  asp-controller="Panier" asp-action="AddToCart" asp-route-id="@Model.Id" asp-route-quantite="1">Ajouter au panier.</a>
         <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
         <a asp-action="Index">Back to List</a>
     </div>
