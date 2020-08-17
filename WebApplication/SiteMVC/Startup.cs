@@ -27,6 +27,7 @@ namespace SiteMVC {
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<TireliresContext>(options => options.UseLazyLoadingProxies().UseSqlServer(connectionString));
+            // TODO: AddDbContext avec lien vers la base de données, nouvelles ou identique
             services.AddControllersWithViews();
 
         }
