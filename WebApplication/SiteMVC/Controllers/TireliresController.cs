@@ -23,10 +23,10 @@ namespace SiteMVC.Controllers {
             var liste = _repository.GetList();
             foreach (Produit p in liste) {
                 //_repository.GetPhoto(p);
-                    }
+            }
             return View(liste);
         }
-        
+
 
         public ActionResult Details(int id) {
             ViewBag.Photo = new Repository<Photo>().GetById(id).Image;
@@ -35,18 +35,7 @@ namespace SiteMVC.Controllers {
 
 
         public ActionResult Create() {
-            ViewBag.IdCouleur = new Repository<Couleur>().GetList().Select(
-                c => new SelectListItem { Text = c.Nom, Value = c.Id.ToString() }
-                );
-            ViewBag.IdFabricant = new Repository<Fabricant>().GetList().Select(
-            c => new SelectListItem { Text = c.Nom, Value = c.Id.ToString() }
-                );
-            ViewBag.IdFournisseur = new Repository<Fournisseur>().GetList().Select(
-            c => new SelectListItem { Text = c.Nom, Value = c.Id.ToString() }
-                );
-            ViewBag.IdCategorie = new Repository<Categorie>().GetList().Select(
-            c => new SelectListItem { Text = c.Nom, Value = c.Id.ToString() }
-                );
+            GetNavigationProperties();
             return View();
         }
 
@@ -58,23 +47,13 @@ namespace SiteMVC.Controllers {
                 return RedirectToAction(nameof(Index));
             }
             catch {
+                GetNavigationProperties();
                 return View();
             }
         }
 
         public ActionResult Edit(int id) {
-            ViewBag.IdCouleur = new Repository<Couleur>().GetList().Select(
-                c => new SelectListItem { Text = c.Nom, Value = c.Id.ToString() }
-                );
-            ViewBag.IdFabricant = new Repository<Fabricant>().GetList().Select(
-            c => new SelectListItem { Text = c.Nom, Value = c.Id.ToString() }
-                );
-            ViewBag.IdFournisseur = new Repository<Fournisseur>().GetList().Select(
-            c => new SelectListItem { Text = c.Nom, Value = c.Id.ToString() }
-                );
-            ViewBag.IdCategorie = new Repository<Categorie>().GetList().Select(
-            c => new SelectListItem { Text = c.Nom, Value = c.Id.ToString() }
-                );
+            GetNavigationProperties();
             return View(_repository.GetById(id));
         }
 
@@ -86,6 +65,7 @@ namespace SiteMVC.Controllers {
                 return RedirectToAction(nameof(Index));
             }
             catch {
+                GetNavigationProperties();
                 return View();
             }
         }
@@ -112,6 +92,21 @@ namespace SiteMVC.Controllers {
                 p => p.IdProduit == id).FirstOrDefault();
             chemin = photo.Image;
             return chemin;                          //Changer par des Url
+        }
+
+        private void GetNavigationProperties() {
+            ViewBag.IdCouleur = new Repository<Couleur>().GetList().Select(
+          c => new SelectListItem { Text = c.Nom, Value = c.Id.ToString() }
+                );
+            ViewBag.IdFabricant = new Repository<Fabricant>().GetList().Select(
+            c => new SelectListItem { Text = c.Nom, Value = c.Id.ToString() }
+                );
+            ViewBag.IdFournisseur = new Repository<Fournisseur>().GetList().Select(
+            c => new SelectListItem { Text = c.Nom, Value = c.Id.ToString() }
+                );
+            ViewBag.IdCategorie = new Repository<Categorie>().GetList().Select(
+            c => new SelectListItem { Text = c.Nom, Value = c.Id.ToString() }
+                );
         }
     }
 }
