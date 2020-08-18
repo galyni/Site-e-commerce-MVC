@@ -19,7 +19,7 @@ namespace SiteMVC.Controllers {
         }
 
         // GET: Couleurs/Create
-        public ActionResult Create(int id) {
+        public ActionResult Create() {
             return View();
         }
 
