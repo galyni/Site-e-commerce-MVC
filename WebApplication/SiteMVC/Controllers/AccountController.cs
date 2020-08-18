@@ -12,6 +12,11 @@ namespace SiteMVC.Controllers {
         public AccountController(SignInManager<WebsiteUser> signInManager) {
             _signInManager = signInManager;
         }
+        [HttpGet]
+        public ActionResult Login() {
+            return View();
+
+        }
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model) {
             // Que fait cette condition ? Pris dans le skillpipe
