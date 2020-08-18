@@ -16,11 +16,11 @@ namespace SiteMVC
         public string Prenom { get; set; }
         public bool Actif { get; set; }
         public int IdAdresse { get; set; }
+        public string IdUser { get;set; }
 
         public virtual Adresse IdAdresseNavigation { get; set; }
         public virtual ICollection<Avis> Avis { get; set; }
         public virtual ICollection<Commande> Commande { get; set; }
 
-        // TODO : ajouter champ mail ?
     }
 }
