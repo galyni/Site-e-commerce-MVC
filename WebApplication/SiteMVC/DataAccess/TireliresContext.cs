@@ -1,12 +1,14 @@
 ﻿using System;
 using System.IO;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
+using SiteMVC.Models;
 
 namespace SiteMVC
 {
-    public partial class TireliresContext : DbContext
+    public partial class TireliresContext : IdentityDbContext<WebsiteUser>
     {
         public TireliresContext()
         {
@@ -42,6 +44,7 @@ namespace SiteMVC
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Adresse>(entity =>
             {
                 entity.Property(e => e.CodePostal)
