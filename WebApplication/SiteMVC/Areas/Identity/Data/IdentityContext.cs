@@ -11,6 +11,9 @@ namespace SiteMVC.Data
 {
     public class IdentityContext : IdentityDbContext<Client>
     {
+        public IdentityContext() {
+
+        }
         public IdentityContext(DbContextOptions<IdentityContext> options)
             : base(options)
         {

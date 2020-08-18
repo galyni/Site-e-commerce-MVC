@@ -10,7 +10,9 @@ namespace SiteMVC
 {
     public partial class TireliresContext : IdentityContext
     {
+        public TireliresContext() {
 
+        }
         public TireliresContext(DbContextOptions<IdentityContext> options)
             : base(options)
         {
