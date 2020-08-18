@@ -44,6 +44,7 @@ namespace SiteMVC
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Adresse>(entity =>
             {
                 entity.Property(e => e.CodePostal)
