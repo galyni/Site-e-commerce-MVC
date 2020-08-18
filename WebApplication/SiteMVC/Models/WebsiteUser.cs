@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SiteMVC.Models {
     public class WebsiteUser :IdentityUser {
+        public string mail { get; set; }
 
     }
 }

@@ -20,5 +20,7 @@ namespace SiteMVC
         public virtual Adresse IdAdresseNavigation { get; set; }
         public virtual ICollection<Avis> Avis { get; set; }
         public virtual ICollection<Commande> Commande { get; set; }
+
+        // TODO : ajouter champ mail ?
     }
 }
