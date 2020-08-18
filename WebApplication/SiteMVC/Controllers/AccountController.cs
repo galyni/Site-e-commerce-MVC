@@ -24,6 +24,7 @@ namespace SiteMVC.Controllers {
                 var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, true, false);
                 if (result.Succeeded) {
                     // TODO : redirection après Login. À la page de départ ? voir skillpipe
+                    // idem pour Logout
                     if (Request.Query.Keys.Contains("ReturnUrl")) {
                         return Redirect(Request.Query["ReturnUrl"].First());
                     }
@@ -33,6 +34,13 @@ namespace SiteMVC.Controllers {
                 }
             }
             return View();
+        }
+        // TODO page de confirmation Logout ?
+        public ActionResult Logout() {
+            if (User.Identity.IsAuthenticated) {
+                _signInManager.SignOutAsync();
+            }
+            return RedirectToAction("Index", "Tirelires");
         }
     }
 }
