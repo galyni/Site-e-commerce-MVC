@@ -9,9 +9,31 @@ using SiteMVC.Models;
 namespace SiteMVC.Controllers {
     public class AccountController : Controller {
         private readonly SignInManager<WebsiteUser> _signInManager;
-        public AccountController(SignInManager<WebsiteUser> signInManager) {
+        private readonly UserManager<WebsiteUser> _userManager;
+        public AccountController(SignInManager<WebsiteUser> signInManager, UserManager<WebsiteUser> userManager) {
             _signInManager = signInManager;
+            _userManager = userManager;
         }
+        [HttpGet]
+        public ActionResult Register() {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel model) {
+            if (ModelState.IsValid) {
+                WebsiteUser user = new WebsiteUser {
+                    UserName = model.Username,
+                    Email = model.Email
+                };
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded) {
+                    return await Login(model);
+                }
+            }
+            return View();
+        }
+
         [HttpGet]
         public ActionResult Login() {
             return View();

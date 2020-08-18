@@ -1,0 +1,25 @@
+﻿@model SiteMVC.Models.RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<!--TODO : confirmation pour mail et password + validation + masquage mot de passe-->
+<h2>@ViewData["Title"]</h2>
+<div>
+    <form method="post" asp-action="Register">
+        <div>
+            <label asp-for="Username">Username</label>
+            <input asp-for="Username" />
+        </div>
+        <div>
+            <label asp-for="Email">Email</label>
+            <input asp-for="Email" />
+        </div>
+        <div>
+            <label asp-for="Password">Password</label>
+            <input asp-for="Password" />
+        </div>
+        <input type="submit" value="Register" />
+    </form>
+</div>
+
