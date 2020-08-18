@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace SiteMVC
 {
-    public partial class Client
+    public partial class Client : IdentityUser
     {
         public Client()
         {

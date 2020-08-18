@@ -1,18 +1,17 @@
 ﻿using System;
 using System.IO;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
+using SiteMVC.Data;
 
 namespace SiteMVC
 {
-    public partial class TireliresContext : DbContext
+    public partial class TireliresContext : IdentityContext
     {
-        public TireliresContext()
-        {
-        }
 
-        public TireliresContext(DbContextOptions<TireliresContext> options)
+        public TireliresContext(DbContextOptions<IdentityContext> options)
             : base(options)
         {
         }
