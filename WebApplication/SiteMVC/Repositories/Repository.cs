@@ -28,8 +28,7 @@ namespace SiteMVC.Repositories {
             _context.SaveChanges();
         }
 
-        public void Delete(int id) {
-            T item = table.Find(id);
+        public void Delete(T item) {
             table.Remove(item);
             _context.SaveChanges();
         }

@@ -45,7 +45,7 @@ namespace SiteMVC.Controllers {
         // POST: Couleurs/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Couleur couleur) {
+        public ActionResult Edit(Couleur couleur) {
             try {
                 _repository.Update(couleur);
                 return RedirectToAction(nameof(Index));
@@ -57,15 +57,16 @@ namespace SiteMVC.Controllers {
 
         // GET: Couleurs/Delete/5
         public ActionResult Delete(int id) {
-            return View();
+            var item = _repository.GetById(id);
+            return View(item);
         }
 
         // POST: Couleurs/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection) {
+        public ActionResult Delete(int id, Couleur collection) {
             try {
-                _repository.Delete(id);
+                _repository.Delete(collection);
                 return RedirectToAction(nameof(Index));
             }
             catch {
