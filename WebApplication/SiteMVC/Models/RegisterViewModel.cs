@@ -6,5 +6,6 @@ using System.Threading.Tasks;
 namespace SiteMVC.Models {
     public class RegisterViewModel : LoginViewModel {
         public string Email { get; set; }
+        public string RoleName { get; set; }
     }
 }

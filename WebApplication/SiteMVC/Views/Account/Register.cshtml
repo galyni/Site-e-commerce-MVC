@@ -19,6 +19,11 @@
             <label asp-for="Password">Password</label>
             <input asp-for="Password" />
         </div>
+        <!--TODO : masquer pour anonymes + mettre default a User-->
+        <div >
+            <label asp-for="RoleName" class="control-label">Role</label>         
+            <select asp-for="RoleName" class="form-control" asp-items="@ViewBag.Roles"></select>
+        </div>
         <input type="submit" value="Register" />
     </form>
 </div>
