@@ -21,6 +21,7 @@ namespace SiteMVC.Controllers {
         }
         [HttpGet]
         public ActionResult Register() {
+            // TODO : conditionne a l'authentification et au role
             ViewBag.Roles = new List<string>() {"User", "Administrator", "Moderator" }.Select(
                 r => new SelectListItem { Text = r, Value = r});
             return View();
