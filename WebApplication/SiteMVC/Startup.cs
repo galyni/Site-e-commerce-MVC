@@ -28,6 +28,7 @@ namespace SiteMVC {
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<TireliresContext>(options => options.UseLazyLoadingProxies().UseSqlServer(connectionString));
+
             //  Config de l'authentification. Lien avec le contexte Tirelire
             services.AddDefaultIdentity<WebsiteUser>(options => {
                 options.User.RequireUniqueEmail = true;
@@ -42,8 +43,15 @@ namespace SiteMVC {
                 options.Password.RequireUppercase = true;
                 options.Password.RequireLowercase = false;
             })
-                .AddEntityFrameworkStores<TireliresContext>();        
+                .AddEntityFrameworkStores<TireliresContext>();
+
+            services.ConfigureApplicationCookie(options => {
+                options.Cookie.Name = "AuthenticationCookie";
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                options.SlidingExpiration = true;
+            });
             services.AddControllersWithViews();
+
 
         }
 
