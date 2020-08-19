@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,8 +29,26 @@ namespace SiteMVC {
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<TireliresContext>(options => options.UseLazyLoadingProxies().UseSqlServer(connectionString));
+
             //  Config de l'authentification. Lien avec le contexte Tirelire
-            services.AddDefaultIdentity<WebsiteUser>(options => {
+            //services.AddDefaultIdentity<WebsiteUser>(options => {
+            //    options.User.RequireUniqueEmail = true;
+            //    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -._@+";
+            //    options.Lockout.AllowedForNewUsers = true;
+            //    options.Lockout.MaxFailedAccessAttempts = 3;
+            //    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
+            //    options.Password.RequiredLength = 10;
+            //    options.Password.RequiredUniqueChars = 3;
+            //    options.Password.RequireDigit = true;
+            //    options.Password.RequireNonAlphanumeric = true;
+            //    options.Password.RequireUppercase = true;
+            //    options.Password.RequireLowercase = false;
+            //})
+            //    .AddEntityFrameworkStores<TireliresContext>();
+
+            // Authorization
+            // TODO : autorisations par controller et par methode
+            services.AddIdentity<WebsiteUser, IdentityRole>(options => {
                 options.User.RequireUniqueEmail = true;
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -._@+";
                 options.Lockout.AllowedForNewUsers = true;
@@ -41,9 +60,15 @@ namespace SiteMVC {
                 options.Password.RequireNonAlphanumeric = true;
                 options.Password.RequireUppercase = true;
                 options.Password.RequireLowercase = false;
-            })
-                .AddEntityFrameworkStores<TireliresContext>();        
+            }).AddEntityFrameworkStores<TireliresContext>();
+
+            services.ConfigureApplicationCookie(options => {
+                options.Cookie.Name = "AuthenticationCookie";
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                options.SlidingExpiration = true;
+            });
             services.AddControllersWithViews();
+
 
         }
 
