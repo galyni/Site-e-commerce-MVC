@@ -29,7 +29,20 @@ namespace SiteMVC {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<TireliresContext>(options => options.UseLazyLoadingProxies().UseSqlServer(connectionString));
             //  Config de l'authentification. Lien avec le contexte Tirelire
-            services.AddDefaultIdentity<WebsiteUser>().AddEntityFrameworkStores<TireliresContext>();        
+            services.AddDefaultIdentity<WebsiteUser>(options => {
+                options.User.RequireUniqueEmail = true;
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -._@+";
+                options.Lockout.AllowedForNewUsers = true;
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
+                options.Password.RequiredLength = 10;
+                options.Password.RequiredUniqueChars = 3;
+                options.Password.RequireDigit = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = false;
+            })
+                .AddEntityFrameworkStores<TireliresContext>();        
             services.AddControllersWithViews();
 
         }
