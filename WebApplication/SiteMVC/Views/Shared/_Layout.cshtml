@@ -26,6 +26,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <!--TODO : changer l'affichage de login/logout ? -->
+                        <!--TODO : permettre aux admins de Register des Users, Admin, Managers... -->
                         @if (!User.Identity.IsAuthenticated) {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Log in</a>
