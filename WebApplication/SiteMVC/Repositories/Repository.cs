@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,10 +23,11 @@ namespace SiteMVC.Repositories {
             return table.Find(id);
         }
 
-        public void Create(T item) {        // Mettre du vrai code
-            table.Add(item);
+        public T Create(T item) {        // Mettre du vrai code
+            EntityEntry<T> test = table.Add(item);
             //_context.Set<T>().Add(item);
             _context.SaveChanges();
+            return test.Entity;
         }
 
         public void Delete(T item) {

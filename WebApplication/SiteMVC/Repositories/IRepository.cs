@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SiteMVC.Repositories {
     public interface IRepository<T> where T : class {
-        void Create(T item);
+        T Create(T item);
         void Delete(T item);
         void Update(T item);
         T GetById(int id);

@@ -4,17 +4,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SiteMVC.Models.ViewModels;
 using SiteMVC.Repositories;
 
 namespace SiteMVC.Controllers {
     public class FournisseursController : Controller {
-        IRepository<Fournisseur> _repository;
-        public FournisseursController(IRepository<Fournisseur> repository) {
-            _repository = repository;
+        IRepository<Fournisseur> _repositoryFournisseur;
+        IRepository<Adresse> _repositoryAdresse;
+
+        public FournisseursController(IRepository<Fournisseur> repositoryFournisseur, IRepository<Adresse> repositoryAdresse) {
+            _repositoryFournisseur = repositoryFournisseur;
+            _repositoryAdresse = repositoryAdresse;
+
         }
         // GET: Fournisseurs
         public ActionResult Index() {
-            var liste = _repository.GetList();
+            var liste = _repositoryFournisseur.GetList();
             return View(liste);
         }
 
@@ -26,9 +31,11 @@ namespace SiteMVC.Controllers {
         // POST: Fournisseurs/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Fournisseur fournisseur) {
+        public ActionResult Create(FournisseurViewModel data) {
             try {
-                _repository.Create(fournisseur);
+                Adresse adresse = _repositoryAdresse.Create(new Adresse() { Numero = data.Numero, Rue = data.Rue, CodePostal = data.CodePostal, Ville = data.Ville, Pays = data.Pays });
+                Fournisseur fournisseur = new Fournisseur() { Nom = data.Nom, Siret = data.Siret, Telephone = data.Telephone, Mail = data.Mail, IdAdresse=adresse.Id };
+                _repositoryFournisseur.Create(fournisseur);
                 return RedirectToAction(nameof(Index));
             }
             catch {
@@ -36,9 +43,10 @@ namespace SiteMVC.Controllers {
             }
         }
 
+        //TODO : implement Edit for Fournisseurs
         // GET: Fournisseurs/Edit/5
         public ActionResult Edit(int id) {
-            Fournisseur Fournisseur = _repository.GetById(id);
+            Fournisseur Fournisseur = _repositoryFournisseur.GetById(id);
             return View(Fournisseur);
         }
 
@@ -47,7 +55,7 @@ namespace SiteMVC.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Fournisseur fournisseur) {
             try {
-                _repository.Update(fournisseur);
+                _repositoryFournisseur.Update(fournisseur);
                 return RedirectToAction(nameof(Index));
             }
             catch {
@@ -57,7 +65,7 @@ namespace SiteMVC.Controllers {
 
         // GET: Fournisseurs/Delete/5
         public ActionResult Delete(int id) {
-            var item = _repository.GetById(id);
+            var item = _repositoryFournisseur.GetById(id);
             return View(item);
         }
 
@@ -66,7 +74,7 @@ namespace SiteMVC.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, Fournisseur fournisseur) {
             try {
-                _repository.Delete(fournisseur);
+                _repositoryFournisseur.Delete(fournisseur);
                 return RedirectToAction(nameof(Index));
             }
             catch {

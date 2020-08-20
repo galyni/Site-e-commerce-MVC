@@ -1,4 +1,4 @@
-﻿@model SiteMVC.Fournisseur
+﻿@model SiteMVC.Models.ViewModels.FournisseurViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -33,8 +33,32 @@
                 <span asp-validation-for="Mail" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdAdresse" class="control-label"></label>
-                <select asp-for="IdAdresse" class ="form-control" asp-items="ViewBag.IdAdresse"></select>
+                <p>Adresse :</p>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rue" class="control-label"></label>
+                <input asp-for="Rue" class="form-control" />
+                <span asp-validation-for="Mail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Numero" class="control-label"></label>
+                <input asp-for="Numero" class="form-control" />
+                <span asp-validation-for="Mail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodePostal" class="control-label"></label>
+                <input asp-for="CodePostal" class="form-control" />
+                <span asp-validation-for="Mail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ville" class="control-label"></label>
+                <input asp-for="Ville" class="form-control" />
+                <span asp-validation-for="Mail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pays" class="control-label"></label>
+                <input asp-for="Pays" class="form-control" />
+                <span asp-validation-for="Mail" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
