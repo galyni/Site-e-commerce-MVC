@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using SiteMVC.Models.ViewModels;
 using SiteMVC.Repositories;
 
@@ -47,6 +48,9 @@ namespace SiteMVC.Controllers {
         // GET: Fournisseurs/Edit/5
         public ActionResult Edit(int id) {
             Fournisseur Fournisseur = _repositoryFournisseur.GetById(id);
+            ViewBag.IdAdresse = new Repository<Adresse>().GetList().Select(
+          a => new SelectListItem { Text = String.Concat(a.Numero, a.Rue, a.CodePostal, a.Ville, a.Pays), Value = a.Id.ToString() }
+                );
             return View(Fournisseur);
         }
 
@@ -59,7 +63,10 @@ namespace SiteMVC.Controllers {
                 return RedirectToAction(nameof(Index));
             }
             catch {
-                return View();
+                ViewBag.IdAdresse = new Repository<Adresse>().GetList().Select(
+          a => new SelectListItem { Text = String.Concat(a.Numero, a.Rue, a.CodePostal, a.Ville, a.Pays), Value = a.Id.ToString() }
+                );
+                return View(fournisseur.Id);
             }
         }
 

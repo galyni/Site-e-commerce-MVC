@@ -59,14 +59,14 @@ namespace SiteMVC.Controllers {
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Produit produit) {
+        public ActionResult Edit(Produit produit) {
             try {
                 _repository.Update(produit);
                 return RedirectToAction(nameof(Index));
             }
             catch {
                 GetNavigationProperties();
-                return View();
+                return View(produit.Id);
             }
         }
 
