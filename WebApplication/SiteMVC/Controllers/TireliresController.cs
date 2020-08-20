@@ -76,8 +76,9 @@ namespace SiteMVC.Controllers {
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection) {
+        public ActionResult Delete(int id, Produit produit) {
             try {
+                _repository.Delete(produit);
                 return RedirectToAction(nameof(Index));
             }
             catch {
