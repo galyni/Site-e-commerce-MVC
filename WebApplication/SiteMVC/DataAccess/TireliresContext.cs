@@ -195,8 +195,7 @@ namespace SiteMVC
             modelBuilder.Entity<Photo>(entity =>
             {
                 entity.Property(e => e.Image)
-                    .IsRequired()
-                    .HasMaxLength(500);
+                    .IsRequired();
 
                 entity.HasOne(d => d.IdProduitNavigation)
                     .WithMany(p => p.Photo)

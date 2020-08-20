@@ -28,10 +28,10 @@ namespace SiteMVC.Controllers {
         }
 
 
-        public ActionResult Details(int id) {
-            ViewBag.Photo = new Repository<Photo>().GetById(id).Image;
-            return View(_repository.GetById(id));
-        }
+        //public ActionResult Details(int id) {
+        //    ViewBag.Photo = new Repository<Photo>().GetById(id).Image;
+        //    return View(_repository.GetById(id));
+        //}
 
 
         public ActionResult Create() {
@@ -85,14 +85,14 @@ namespace SiteMVC.Controllers {
             }
         }
 
-        public string GetImageUrl(int id) {          //A changer ?
-            Photo photo;
-            string chemin;
-            photo = new Repository<Photo>().GetList().Where(
-                p => p.IdProduit == id).FirstOrDefault();
-            chemin = photo.Image;
-            return chemin;                          //Changer par des Url
-        }
+        //public string GetImageUrl(int id) {          //A changer ?
+        //    Photo photo;
+        //    string chemin;
+        //    photo = new Repository<Photo>().GetList().Where(
+        //        p => p.IdProduit == id).FirstOrDefault();
+        //    chemin = photo.Image;
+        //    return chemin;                          //Changer par des Url
+        //}
 
         private void GetNavigationProperties() {
             ViewBag.IdCouleur = new Repository<Couleur>().GetList().Select(

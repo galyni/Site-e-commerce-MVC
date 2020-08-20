@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SiteMVC;
 
 namespace SiteMVC.Migrations
 {
     [DbContext(typeof(TireliresContext))]
-    partial class TireliresContextModelSnapshot : ModelSnapshot
+    [Migration("20200820100957_DropImageColumn")]
+    partial class DropImageColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -492,9 +494,6 @@ namespace SiteMVC.Migrations
 
                     b.Property<int?>("IdProduit")
                         .HasColumnType("int");
-
-                    b.Property<byte[]>("Image")
-                        .HasColumnType("varbinary(max)");
 
                     b.HasKey("Id");
 

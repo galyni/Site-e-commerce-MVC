@@ -7,7 +7,7 @@ namespace SiteMVC
     {
         public int Id { get; set; }
         public int? IdProduit { get; set; }
-        public string Image { get; set; }
+        public byte[] Image { get; set; }
 
         public virtual Produit IdProduitNavigation { get; set; }
     }
