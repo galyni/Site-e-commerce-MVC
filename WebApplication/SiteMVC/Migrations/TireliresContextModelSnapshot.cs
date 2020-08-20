@@ -262,8 +262,10 @@ namespace SiteMVC.Migrations
                     b.Property<int>("IdAdresse")
                         .HasColumnType("int");
 
-                    b.Property<string>("IdUser")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Mail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Nom")
                         .IsRequired()
@@ -494,6 +496,7 @@ namespace SiteMVC.Migrations
                         .HasColumnType("int");
 
                     b.Property<byte[]>("Image")
+                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.HasKey("Id");

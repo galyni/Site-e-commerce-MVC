@@ -104,6 +104,10 @@ namespace SiteMVC
                     .IsRequired()
                     .HasMaxLength(50);
 
+                entity.Property(e => e.Mail)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
                 entity.HasOne(d => d.IdAdresseNavigation)
                     .WithMany(p => p.Client)
                     .HasForeignKey(d => d.IdAdresse)
