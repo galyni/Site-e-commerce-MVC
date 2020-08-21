@@ -79,7 +79,7 @@ namespace SiteMVC.Controllers {
         // POST: Fournisseurs/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, Fournisseur fournisseur) {
+        public ActionResult Delete(Fournisseur fournisseur) {
             try {
                 _repositoryFournisseur.Delete(fournisseur);
                 return RedirectToAction(nameof(Index));

@@ -79,7 +79,7 @@ namespace SiteMVC.Controllers {
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, Photo photo) {
+        public ActionResult Delete(Photo photo) {
             try {
                 _photoRepository.Delete(photo);
                 return RedirectToAction(nameof(Index));

@@ -64,7 +64,7 @@ namespace SiteMVC.Controllers {
         // POST: Couleurs/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, Couleur collection) {
+        public ActionResult Delete(Couleur collection) {
             try {
                 _repository.Delete(collection);
                 return RedirectToAction(nameof(Index));

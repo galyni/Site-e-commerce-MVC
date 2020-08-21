@@ -49,7 +49,7 @@ namespace SiteMVC.Controllers {
         // POST: CommandesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection) {
+        public ActionResult Edit(int id, Commande commande) {
             try {
                 return RedirectToAction(nameof(Index));
             }
@@ -66,7 +66,7 @@ namespace SiteMVC.Controllers {
         // POST: CommandesController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection) {
+        public ActionResult Delete(Commande commande) {
             try {
                 return RedirectToAction(nameof(Index));
             }

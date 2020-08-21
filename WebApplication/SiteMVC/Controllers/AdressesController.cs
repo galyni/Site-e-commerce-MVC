@@ -64,8 +64,9 @@ namespace SiteMVC.Controllers {
         // POST: Adresses/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, Adresse adresse) {
+        public ActionResult Delete(Adresse adresse) {
             try {
+                // TODO : gestion exception mise à jour BD
                 _repository.Delete(adresse);
                 return RedirectToAction(nameof(Index));
             }
