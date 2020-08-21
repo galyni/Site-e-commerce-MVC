@@ -5,7 +5,7 @@
     ViewData["Title"] = "SeeCart";
     decimal total = 0;
 }
-
+<!--TODO : suppression et modification des objets et des quantités-->
 <h1>SeeCart</h1>
 
 <p>
@@ -64,14 +64,13 @@
 </div>
 <div>
     @if (!User.Identity.IsAuthenticated) {
-    <p>Vous devez <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">créer un compte</a> ou vous <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">identifier</a> pour commander.</p>
+        <p>Vous devez <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">créer un compte</a> ou vous <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">identifier</a> pour commander.</p>
     }
-    <!--else if(User.IsInRole("User") {-->
-        @*Appel d'une fonction clienController pour obtenir le client. Si nul, proposer de remplir les informations et en créer un.*@
-    <!--;
+    else if (User.IsInRole("User")) {
+        <a class="nav-link text-dark" asp-area="" asp-controller="Commandes" asp-action="Validate" asp-route-total="@total">Valider la commande</a>
     }
-    else{
-
-    }-->
+    else {
+        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Log out</a>
+    }
 </div>
 
