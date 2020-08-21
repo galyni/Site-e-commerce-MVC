@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Castle.Core.Internal;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using SiteMVC.Repositories;
+using System.Collections.Generic;
 
 namespace SiteMVC.Controllers {
     public class PanierController : Controller {
@@ -8,10 +12,30 @@ namespace SiteMVC.Controllers {
         public PanierController(IRepository<Produit> produitRepository) {
             _repository = produitRepository;
         }
-        public ActionResult AddToCart(int id, int quantite) {        // ajouter la quantite a Details, voire creer une vue intermediaire
-            var produit = _repository.GetById(id);
-            // TODO ajouter la logique pour ajout a la session 
-            return RedirectToAction("Index", "Tirelires");      // Retour à la page gallerie
+
+        // TODO : vue partielle ou modale pour choix quantite ?
+        //[HttpGet]
+        //public ActionResult AddToCart(int id) {        // ajouter la quantite a Details, voire creer une vue intermediaire
+        //    
+        //    return RedirectToAction("Index", "Tirelires");      // Retour à la page gallerie
+        //}
+
+        [HttpPost]
+        public ActionResult AddToCart(int id, int quantite) {
+            string currentCartSerialized = HttpContext.Session.GetString("Cart");
+            List<KeyValuePair<int, int>> currentCart;
+            if (currentCartSerialized.IsNullOrEmpty()) {
+                currentCart = new List<KeyValuePair<int, int>>();
+                currentCart.Add(new KeyValuePair<int, int>(id, quantite));
+            }
+            else {
+                currentCart= JsonConvert.DeserializeObject<List<KeyValuePair<int, int>>>(currentCartSerialized);
+                // TODO : cas où l'objet est déjà commandé : ajouter la quantité
+                currentCart.Add(new KeyValuePair<int, int>(id, quantite));
+            }
+            currentCartSerialized = JsonConvert.SerializeObject(currentCart);
+            HttpContext.Session.SetString("Cart", currentCartSerialized);
+            return RedirectToAction("Index", "Tirelires");
         }
         // GET: PanierController
         public ActionResult Panier() {

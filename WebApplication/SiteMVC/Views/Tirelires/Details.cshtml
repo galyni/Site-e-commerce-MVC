@@ -79,7 +79,17 @@
 
 <!-- TODO:affichage et acces conditionné aux droits -->
 <div>
-    <a asp-controller="Panier" asp-action="AddToCart" asp-route-id="@Model.Id" asp-route-quantite="1">Ajouter au panier.</a>
+    <form method="post" asp-action="AddToCart" asp-controller="Panier" asp-route-id="@Model.Id">
+        <div asp-validation-summary="All"></div>
+        <div class="form-field">
+            <label for="quantite">Quantité</label>
+            <input type="number" min="1" max="@Model.Stock" id="quantite" name="quantite" required/>
+        </div>
+        <div class="form-field">
+            <input type="submit" value="Submit" />
+        </div>
+    </form>
+    @*<a asp-controller="Panier" asp-action="AddToCart" asp-route-id="@Model.Id" asp-route-quantite="1">Ajouter au panier.</a>*@
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
