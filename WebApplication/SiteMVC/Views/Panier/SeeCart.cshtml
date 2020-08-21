@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNetCore.Http
+@model IEnumerable<SiteMVC.Produit>
+
+@{
+    ViewData["Title"] = "SeeCart";
+    decimal total = 0;
+}
+
+<h1>SeeCart</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrixUnitaire)
+            </th>
+            <th>
+                <p>Quantité<p />
+            </th>
+            <th>
+                <p>Sous-total</p>
+            </th>
+            <th>
+   
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            int quantite = (int)ViewData[item.Id.ToString()];
+            decimal sousTotal = quantite * item.PrixUnitaire;
+            total += sousTotal;
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrixUnitaire)
+                </td>
+                <td>
+                    <p>@ViewData[item.Id.ToString()]</p>
+                </td>
+                <td>
+                    <p>@sousTotal</p>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <p>Total de la commande : @total euros</p>
+</div>

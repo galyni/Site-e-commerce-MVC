@@ -18,6 +18,7 @@ namespace SiteMVC.Controllers {
         }
 
         // GET: Tirelires
+        // TODO : rendre invisibles les produits désactivés
         public IActionResult Index() {
             //var tireliresContext = _context.Produit.Include(p => p.IdCategorieNavigation).Include(p => p.IdCouleurNavigation).Include(p => p.IdFabricantNavigation).Include(p => p.IdFournisseurNavigation);
             var liste = _repository.GetList();
@@ -27,7 +28,7 @@ namespace SiteMVC.Controllers {
             return View(liste);
         }
 
-
+        // TODO : rendre impossible la commande de produits dont le stock est éro (incohérence avec la règle du champ ?)
         public ActionResult Details(int id) {
             return View(_repository.GetById(id));
         }
@@ -85,14 +86,6 @@ namespace SiteMVC.Controllers {
             }
         }
 
-        //public string GetImageUrl(int id) {          //A changer ?
-        //    Photo photo;
-        //    string chemin;
-        //    photo = new Repository<Photo>().GetList().Where(
-        //        p => p.IdProduit == id).FirstOrDefault();
-        //    chemin = photo.Image;
-        //    return chemin;                          //Changer par des Url
-        //}
 
         private void GetNavigationProperties() {
             ViewBag.IdCouleur = new Repository<Couleur>().GetList().Select(
