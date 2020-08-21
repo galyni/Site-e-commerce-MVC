@@ -28,10 +28,9 @@ namespace SiteMVC.Controllers {
         }
 
 
-        //public ActionResult Details(int id) {
-        //    ViewBag.Photo = new Repository<Photo>().GetById(id).Image;
-        //    return View(_repository.GetById(id));
-        //}
+        public ActionResult Details(int id) {
+            return View(_repository.GetById(id));
+        }
 
 
         public ActionResult Create() {

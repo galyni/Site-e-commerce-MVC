@@ -10,71 +10,76 @@
     <h4>@Html.DisplayFor(model => model.Nom)</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.PrixUnitaire)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PrixUnitaire) euros
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Hauteur)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Hauteur) cm
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Longueur)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Longueur) cm
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Largeur)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Largeur) cm
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Poids) 
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Poids)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Poids) kg
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Capacite)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Capacite) pièces
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Description)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Description)
-            </dd>
+        </dd>
     </dl>
 </div>
-<div class="photo-display">
-    <!--TODO : attributs liés à la modale directement dans la balise img + changement gestion photos-->
-    <button type="button" data-toggle="modal" data-target="#modalPhoto"><img class="photo-display-img" src="@ViewBag.Photo" /></button>               @*Classe ?*@
+@foreach (Photo photo in Model.Photo) {
+    string imageDataUrl = "";
+    string imageBase64 = Convert.ToBase64String(photo.Image);
+    imageDataUrl = string.Format("data:image/jpg;base64,{0}", imageBase64);
+    string target = String.Concat("modalPhoto", photo.Id);
 
-    <!-- Modal -->
-    <div id="modalPhoto" class="modal fade" role="dialog">
+    <!--TODO : taille des images (style css)-->
+    <div class="photo-display">
+        <!--TODO : attributs liés à la modale directement dans la balise img + changement gestion photos-->
+        <img class="photo-display-img" data-toggle="modal" data-target="#@target" src="@imageDataUrl" />
+    </div>
+    <div id="@target" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-body">
-                    <img class="photo-display-img" src="@ViewBag.Photo" />
+                    <img class="photo-display-img" src="@imageDataUrl" />
                 </div>
             </div>
         </div>
     </div>
+}
 
-    @*la modale appelée par le trigger*@
-    
- <!-- TODO:affichage et acces conditionné aux droits -->
-    <div>
-        <a  asp-controller="Panier" asp-action="AddToCart" asp-route-id="@Model.Id" asp-route-quantite="1">Ajouter au panier.</a>
-        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-        <a asp-action="Index">Back to List</a>
-    </div>
+<!-- TODO:affichage et acces conditionné aux droits -->
+<div>
+    <a asp-controller="Panier" asp-action="AddToCart" asp-route-id="@Model.Id" asp-route-quantite="1">Ajouter au panier.</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
