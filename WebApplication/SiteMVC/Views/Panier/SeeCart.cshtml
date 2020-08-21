@@ -27,7 +27,7 @@
                 <p>Sous-total</p>
             </th>
             <th>
-   
+
             </th>
         </tr>
     </thead>
@@ -62,3 +62,16 @@
 <div>
     <p>Total de la commande : @total euros</p>
 </div>
+<div>
+    @if (!User.Identity.IsAuthenticated) {
+    <p>Vous devez <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">créer un compte</a> ou vous <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">identifier</a> pour commander.</p>
+    }
+    <!--else if(User.IsInRole("User") {-->
+        @*Appel d'une fonction clienController pour obtenir le client. Si nul, proposer de remplir les informations et en créer un.*@
+    <!--;
+    }
+    else{
+
+    }-->
+</div>
+
