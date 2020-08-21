@@ -45,7 +45,7 @@ namespace SiteMVC.Controllers {
                     model.PhotoFile.CopyTo(memoryStream);
                     image = memoryStream.ToArray();
                 }
-                Photo photo = new Photo() { IdProduit = model.IdProduit, Image = image };
+                Photo photo = new Photo() { IdProduit = model.IdProduit, Image = image, Nom=model.Nom };
                 _photoRepository.Create(photo);
                 return RedirectToAction(nameof(Index));
             }
@@ -54,6 +54,7 @@ namespace SiteMVC.Controllers {
 
         }
 
+        [HttpGet]
         public ActionResult Edit(int id) {
             ViewBag.IdProduit = new Repository<Produit>().GetList().Select(
                 p => new SelectListItem { Value = p.Id.ToString(), Text = p.Nom });
@@ -68,7 +69,7 @@ namespace SiteMVC.Controllers {
                 return RedirectToAction(nameof(Index));
             }
             catch {
-                return View(photo.Id);
+                return View(photo);
             }
         }
 

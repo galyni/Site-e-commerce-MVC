@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace SiteMVC.Models.ViewModels {
     public class PhotoViewModel {
         public int? IdProduit { get; set; }
+        public string Nom { get; set; }
 
         public IFormFile PhotoFile { get; set; }
 
