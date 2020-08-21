@@ -28,10 +28,9 @@ namespace SiteMVC.Controllers {
         }
 
 
-        //public ActionResult Details(int id) {
-        //    ViewBag.Photo = new Repository<Photo>().GetById(id).Image;
-        //    return View(_repository.GetById(id));
-        //}
+        public ActionResult Details(int id) {
+            return View(_repository.GetById(id));
+        }
 
 
         public ActionResult Create() {
@@ -76,8 +75,9 @@ namespace SiteMVC.Controllers {
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection) {
+        public ActionResult Delete(int id, Produit produit) {
             try {
+                _repository.Delete(produit);
                 return RedirectToAction(nameof(Index));
             }
             catch {

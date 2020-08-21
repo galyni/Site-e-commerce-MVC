@@ -1,0 +1,46 @@
+﻿@model IEnumerable<SiteMVC.Photo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdProduitNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+
+        string imageDataUrl = "";
+        string imageBase64 = Convert.ToBase64String(item.Image);
+        imageDataUrl = string.Format("data:image/jpg;base64,{0}", imageBase64);
+
+        <tr>
+            <td>
+                <img src="@imageDataUrl"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdProduitNavigation.Nom)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                @*<a asp-action="Details" asp-route-id="@item.Id">Details</a>*@ |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
