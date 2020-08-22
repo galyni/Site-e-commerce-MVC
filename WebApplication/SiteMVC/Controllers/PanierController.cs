@@ -50,6 +50,7 @@ namespace SiteMVC.Controllers {
             }
             List<Produit> listeProduits = new List<Produit>();
             foreach (KeyValuePair<int, int> infosProduit in currentCart) {
+                // TODO : mettre en cache cette liste pour l'utiliser dans le CommandesController
                 Produit produit = _produitRepository.GetById(infosProduit.Key);
                 listeProduits.Add(produit);
                 // Pour associer la quantité au produit

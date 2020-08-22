@@ -41,6 +41,7 @@ namespace SiteMVC.Controllers {
                 Adresse adresse = _repositoryAdresse.Create(new Adresse() { Numero = clientViewModel.Numero, Rue = clientViewModel.Rue, CodePostal = clientViewModel.CodePostal, Ville = clientViewModel.Ville, Pays = clientViewModel.Pays });
                 Client client = new Client() { Nom = clientViewModel.Nom, Prenom = clientViewModel.Prenom, Actif = clientViewModel.Actif, Mail = clientViewModel.Mail, IdAdresse = adresse.Id };
                 _depotClient.Create(client);
+            // TODO : simplifier en comprenant les routes. Ambient value ?
                 decimal total = JsonConvert.DeserializeObject<decimal>(HttpContext.Session.GetString("total"));
                 // Acceptable parce que le seul accès est par une commande en cours
                 return RedirectToAction("Validate", "Commandes", new { id = total });
