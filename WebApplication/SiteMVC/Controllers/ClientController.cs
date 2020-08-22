@@ -43,7 +43,7 @@ namespace SiteMVC.Controllers {
                 _depotClient.Create(client);
                 decimal total = JsonConvert.DeserializeObject<decimal>(HttpContext.Session.GetString("total"));
                 // Acceptable parce que le seul accès est par une commande en cours
-                return RedirectToAction("ValidateAsync", "Commandes", new { total });
+                return RedirectToAction("Validate", "Commandes", new { id = total });
             //}
             //catch {
                 //return View();

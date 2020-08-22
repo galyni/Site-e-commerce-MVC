@@ -37,8 +37,9 @@ namespace SiteMVC.Controllers {
         }
 
         // GET: CommandesController/Create
-        [Route("Commandes/ValidateAsync/{total}")]
-        public async Task<ActionResult> ValidateAsync(decimal total) {
+        [Route("Commandes/Validate/{total}")]
+        public async Task<ActionResult> ValidateAsync(decimal total) 
+            {
             // Test si le User existe en tant que client, par l'adresse mail (requise comme unique)
             //TODO : unicité de l'adresse mail
             WebsiteUser currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
