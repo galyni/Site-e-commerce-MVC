@@ -64,7 +64,7 @@
 </div>
 <div>
     @if (!User.Identity.IsAuthenticated) {
-        <p>Vous devez <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">créer un compte</a> ou vous <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">identifier</a> pour commander.</p>
+        <p>Vous devez <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register" asp-route-redirectUrl="@Url.PageLink()">créer un compte</a> ou vous <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login" asp-route-redirectUrl="@Url.PageLink()">identifier</a> pour commander.</p>
     }
     else if (User.IsInRole("User")) {
         <a class="nav-link text-dark" asp-area="" asp-controller="Commandes" asp-action="Validate" asp-route-total="@total">Valider la commande</a>

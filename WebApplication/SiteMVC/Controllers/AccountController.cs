@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Castle.Core.Internal;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -20,7 +21,8 @@ namespace SiteMVC.Controllers {
             _roleManager = roleManager;
         }
         [HttpGet]
-        public ActionResult Register() {
+        public ActionResult Register(string redirectUrl) {
+            ViewBag.RedirectUrl = redirectUrl;
             // TODO : conditionne a l'authentification et au role
             ViewBag.Roles = new List<string>() {"User", "Administrator", "Moderator" }.Select(
                 r => new SelectListItem { Text = r, Value = r});
@@ -28,7 +30,7 @@ namespace SiteMVC.Controllers {
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel registerModel) {
+        public async Task<IActionResult> Register(RegisterViewModel registerModel, string redirectUrl) {
             if (ModelState.IsValid) {
                 WebsiteUser user = new WebsiteUser {
                     UserName = registerModel.Username,
@@ -43,7 +45,7 @@ namespace SiteMVC.Controllers {
                     var addedUser = await _userManager.FindByNameAsync(registerModel.Username);
                     await _userManager.AddToRoleAsync(addedUser, registerModel.RoleName);
 
-                    return await Login(registerModel);
+                    return await Login(registerModel, redirectUrl);
                 }
             }
             ViewBag.Roles = new List<string>() { "User", "Administrator", "Moderator" }.Select(
@@ -52,20 +54,21 @@ namespace SiteMVC.Controllers {
         }
 
         [HttpGet]
-        public ActionResult Login() {
+        public ActionResult Login(string redirectUrl) {
+            ViewBag.RedirectUrl = redirectUrl;
             return View();
 
         }
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel loginModel) {
+        public async Task<IActionResult> Login(LoginViewModel loginModel, string redirectUrl) {
             // Que fait cette condition ? Pris dans le skillpipe
             if (ModelState.IsValid) {
                 var result = await _signInManager.PasswordSignInAsync(loginModel.Username, loginModel.Password, true, false);
                 if (result.Succeeded) {
                     // TODO : redirection après Login. À la page de départ ? voir skillpipe
                     // idem pour Logout
-                    if (Request.Query.Keys.Contains("ReturnUrl")) {
-                        return Redirect(Request.Query["ReturnUrl"].First());
+                    if (!redirectUrl.IsNullOrEmpty()) {
+                        return Redirect(redirectUrl);
                     }
                     else {
                         return RedirectToAction("Index", "Tirelires");
