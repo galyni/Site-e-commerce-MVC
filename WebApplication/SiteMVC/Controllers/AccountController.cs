@@ -20,7 +20,8 @@ namespace SiteMVC.Controllers {
             _userManager = userManager;
             _roleManager = roleManager;
         }
-        [HttpGet]
+
+        //[HttpGet]
         //public ActionResult Register(string redirectUrl) {
         //    ViewBag.RedirectUrl = redirectUrl;
         //    // TODO : conditionne a l'authentification et au role
@@ -48,8 +49,7 @@ namespace SiteMVC.Controllers {
                     return await Login(registerModel, redirectUrl);
                 }
             }
-            ViewBag.Roles = new List<string>() { "User", "Administrator", "Moderator" }.Select(
-              r => new SelectListItem { Text = r, Value = r });
+            ViewBag.RedirectUrl = redirectUrl;
             return View();
         }
 
@@ -58,6 +58,7 @@ namespace SiteMVC.Controllers {
         //    ViewBag.RedirectUrl = redirectUrl;
         //    return View();
         //}
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginModel, string redirectUrl) {
             // Que fait cette condition ? Pris dans le skillpipe
@@ -75,6 +76,7 @@ namespace SiteMVC.Controllers {
                     }
                 }
             }
+            ViewBag.RedirectUrl = redirectUrl;
             return View();
         }
         // TODO page de confirmation Logout ?

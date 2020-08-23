@@ -1,12 +1,14 @@
 ﻿@model SiteMVC.Models.RegisterViewModel
 @{
     ViewData["Title"] = "Register";
+    ViewBag.Roles = new List<string>() { "User", "Administrator", "Moderator" }.Select(
+               r => new SelectListItem { Text = r, Value = r });
 }
 
 <!--TODO : confirmation pour mail et password + validation + masquage mot de passe-->
 <h2>@ViewData["Title"]</h2>
 <div>
-    <form method="post" asp-action="Register" asp-route-redirectUrl="@Url.PageLink()">
+    <form method="post" asp-action="Register" asp-route-redirectUrl="@ViewBag.RedirectUrl">
         <div>
             <label asp-for="Username">Username</label>
             <input asp-for="Username" />
