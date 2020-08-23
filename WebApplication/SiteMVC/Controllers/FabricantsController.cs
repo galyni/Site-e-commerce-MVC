@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SiteMVC.Repositories;
 
 namespace SiteMVC.Controllers {
+    [Authorize(Roles = "Administrator")]
     public class FabricantsController : Controller {
         IRepository<Fabricant> _repository;
         public FabricantsController(IRepository<Fabricant> repository) {

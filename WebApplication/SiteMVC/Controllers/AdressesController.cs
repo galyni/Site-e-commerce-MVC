@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SiteMVC.Repositories;
 
 namespace SiteMVC.Controllers {
+    [Authorize]
     public class AdressesController : Controller {
         IRepository<Adresse> _repository;
         public AdressesController(IRepository<Adresse> repository) {
             _repository = repository;
         }
         // GET: Adresses
+        [Authorize(Roles ="Administrator")]
         public ActionResult Index() {
             var liste = _repository.GetList();
             return View(liste);
@@ -45,6 +48,7 @@ namespace SiteMVC.Controllers {
         // POST: Adresses/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(Adresse adresse) {
             try {
                 _repository.Update(adresse);
@@ -56,6 +60,7 @@ namespace SiteMVC.Controllers {
         }
 
         // GET: Adresses/Delete/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int id) {
             var item = _repository.GetById(id);
             return View(item);
@@ -64,6 +69,7 @@ namespace SiteMVC.Controllers {
         // POST: Adresses/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(Adresse adresse) {
             try {
                 // TODO : gestion exception mise à jour BD

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,6 +10,7 @@ using SiteMVC.Models.ViewModels;
 using SiteMVC.Repositories;
 
 namespace SiteMVC.Controllers {
+    [Authorize(Roles ="Administrator")]
     public class FournisseursController : Controller {
         IRepository<Fournisseur> _repositoryFournisseur;
         IRepository<Adresse> _repositoryAdresse;

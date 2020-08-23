@@ -60,16 +60,16 @@ namespace SiteMVC.Controllers {
         }
 
 
-        // GET: PanierController/Details/5
-        public ActionResult Details(int id) {
-            return View();
-        }
+        //// GET: PanierController/Details/5
+        //public ActionResult Details(int id) {
+        //    return View();
+        //}
 
         
-        // GET: PanierController/Edit/5
-        public ActionResult Edit(int id) {
-            return View();
-        }
+        //// GET: PanierController/Edit/5
+        //public ActionResult Edit(int id) {
+        //    return View();
+        //}
 
         
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,6 +11,7 @@ using SiteMVC.Models.ViewModels;
 using SiteMVC.Repositories;
 
 namespace SiteMVC.Controllers {
+    [Authorize(Roles ="Administrator")]
     public class PhotosController : Controller {
         IRepository<Photo> _photoRepository;
 
@@ -88,6 +90,7 @@ namespace SiteMVC.Controllers {
                 return View();
             }
         }
+        [AllowAnonymous]
         public ActionResult GetImage(int id) {
             Photo photo = _photoRepository.GetById(id);
             //string imageDataUrl = "";
