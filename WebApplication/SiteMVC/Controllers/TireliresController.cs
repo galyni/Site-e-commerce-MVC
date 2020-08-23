@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Policy;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -34,6 +35,7 @@ namespace SiteMVC.Controllers {
         }
 
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create() {
             GetNavigationProperties();
             return View();
@@ -41,6 +43,7 @@ namespace SiteMVC.Controllers {
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create(Produit produit) {
             try {
                 _repository.Create(produit);
@@ -52,6 +55,7 @@ namespace SiteMVC.Controllers {
             }
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int id) {
             GetNavigationProperties();
             return View(_repository.GetById(id));
@@ -59,6 +63,7 @@ namespace SiteMVC.Controllers {
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(Produit produit) {
             try {
                 _repository.Update(produit);
@@ -70,12 +75,14 @@ namespace SiteMVC.Controllers {
             }
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int id) {
             return View(_repository.GetById(id));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(Produit produit) {
             try {
                 _repository.Delete(produit);

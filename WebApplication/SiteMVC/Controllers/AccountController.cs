@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Castle.Core.Internal;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -53,11 +54,11 @@ namespace SiteMVC.Controllers {
             return View();
         }
 
-        //[HttpGet]
-        //public ActionResult Login(string redirectUrl) {
-        //    ViewBag.RedirectUrl = redirectUrl;
-        //    return View();
-        //}
+        [HttpGet]
+        public ActionResult Login(string returnUrl) {
+            ViewBag.RedirectUrl = returnUrl;
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginModel, string redirectUrl) {
@@ -80,11 +81,18 @@ namespace SiteMVC.Controllers {
             return View();
         }
         // TODO page de confirmation Logout ?
-        public ActionResult Logout() {
+        [Authorize]
+        public ActionResult Logout(string redirectUrl) {
             if (User.Identity.IsAuthenticated) {
                 _signInManager.SignOutAsync();
             }
-            return RedirectToAction("Index", "Tirelires");
+            if (!redirectUrl.IsNullOrEmpty()) {
+                // TODO : sécurité de la redirection ?
+                return Redirect(redirectUrl);
+            }
+            else {
+                return RedirectToAction("Index", "Tirelires");
+            }
         }
     }
 }

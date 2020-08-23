@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ using SiteMVC.Models;
 using SiteMVC.Repositories;
 
 namespace SiteMVC.Controllers {
+    [Authorize(Roles ="User")]
     public class CommandesController : Controller {
         // TODO : harmoniser les noms et factoriser les controllers avec un générique
         private IRepository<Commande> _depotCommandes;
@@ -27,14 +29,14 @@ namespace SiteMVC.Controllers {
             _userManager = userManager;
         }
         // GET: CommandesController
-        public ActionResult Index() {
-            return View();
-        }
+        //public ActionResult Index() {
+        //    return View();
+        //}
 
-        // GET: CommandesController/Details/5
-        public ActionResult Details(int id) {
-            return View();
-        }
+        //// GET: CommandesController/Details/5
+        //public ActionResult Details(int id) {
+        //    return View();
+        //}
 
         // GET: CommandesController/Create
         [Route("Commandes/Validate/{total}")]
@@ -80,50 +82,52 @@ namespace SiteMVC.Controllers {
             return RedirectToAction("Index", "Tirelires");
         }
 
+        //TODO : découper Validate en plusieurs fonctions, dont Create ?
+
         // POST: CommandesController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(int id) {
-            try {
-                return RedirectToAction(nameof(Index));
-            }
-            catch {
-                return View();
-            }
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create(int id) {
+        //    try {
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch {
+        //        return View();
+        //    }
+        //}
 
         // GET: CommandesController/Edit/5
-        public ActionResult Edit(int id) {
-            return View();
-        }
+        //public ActionResult Edit(int id) {
+        //    return View();
+        //}
 
         // POST: CommandesController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Commande commande) {
-            try {
-                return RedirectToAction(nameof(Index));
-            }
-            catch {
-                return View();
-            }
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(int id, Commande commande) {
+        //    try {
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch {
+        //        return View();
+        //    }
+        //}
 
         // GET: CommandesController/Delete/5
-        public ActionResult Delete(int id) {
-            return View();
-        }
+        //public ActionResult Delete(int id) {
+        //    return View();
+        //}
 
         // POST: CommandesController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(Commande commande) {
-            try {
-                return RedirectToAction(nameof(Index));
-            }
-            catch {
-                return View();
-            }
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Delete(Commande commande) {
+        //    try {
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch {
+        //        return View();
+        //    }
+        //}
     }
 }

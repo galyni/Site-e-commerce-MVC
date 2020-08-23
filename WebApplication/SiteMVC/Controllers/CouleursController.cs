@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SiteMVC.Repositories;
 
 namespace SiteMVC.Controllers {
+    [Authorize(Roles ="Administrator")]
     public class CouleursController : Controller {
         IRepository<Couleur> _repository;
         public CouleursController(IRepository<Couleur> repository) {
