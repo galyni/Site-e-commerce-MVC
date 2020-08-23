@@ -1,0 +1,22 @@
+﻿<!--TODO Changer namespaces et dossiers, ici et pour les autres vues, modèles et controllers liés à l'authentification-->
+@model SiteMVC.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<!--TODO Masquage mot de passe + pas de mise en mémoire-->
+
+<h2>@ViewData["Title"]</h2>
+<div>
+    <form method="post" asp-controller="Account" asp-action="Login" asp-route-redirectUrl ="@Url.PageLink()">
+        <div>
+            <label asp-for="Username">Username</label>
+            <input asp-for="Username" />
+        </div>
+        <div>
+            <label asp-for="Password">Password</label>
+            <input asp-for="Password" />
+        </div>
+        <input type="submit" value="Login" />
+    </form>
+</div>

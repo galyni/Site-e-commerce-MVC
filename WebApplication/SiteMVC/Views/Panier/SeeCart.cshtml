@@ -64,11 +64,12 @@
 </div>
 <div>
     @if (!User.Identity.IsAuthenticated) {
-        <p>Vous devez <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register" asp-route-redirectUrl="@Url.PageLink()">créer un compte</a> ou vous <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login" asp-route-redirectUrl="@Url.PageLink()">identifier</a> pour commander.</p>
+        // TODO : mise en forme des boutons
+        <p>Vous devez @*<a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register" asp-route-redirectUrl="@Url.PageLink()">*@<a class="nav-link text-dark" data-toggle="modal" data-target="#registerModal">créer un compte</a> ou vous <a class="nav-link text-dark" data-toggle="modal" data-target="#loginModal">identifier</a> pour commander.</p>
     }
     else if (User.IsInRole("User")) {
         <a class="nav-link text-dark" asp-area="" asp-controller="Commandes" asp-action="Validate" asp-route-total="@total">Valider la commande</a>
-        <!--TODO : formulaire de création de client comme View Component ou vue partielle ici !-->
+        <!--TODO : formulaire de création de client comme View Component ou vue partielle ici  ? Pas nécessaire en fait !-->
     }
     else {
         <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Log out</a>

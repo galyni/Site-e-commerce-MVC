@@ -21,13 +21,13 @@ namespace SiteMVC.Controllers {
             _roleManager = roleManager;
         }
         [HttpGet]
-        public ActionResult Register(string redirectUrl) {
-            ViewBag.RedirectUrl = redirectUrl;
-            // TODO : conditionne a l'authentification et au role
-            ViewBag.Roles = new List<string>() {"User", "Administrator", "Moderator" }.Select(
-                r => new SelectListItem { Text = r, Value = r});
-            return View();
-        }
+        //public ActionResult Register(string redirectUrl) {
+        //    ViewBag.RedirectUrl = redirectUrl;
+        //    // TODO : conditionne a l'authentification et au role
+        //    ViewBag.Roles = new List<string>() {"User", "Administrator", "Moderator" }.Select(
+        //        r => new SelectListItem { Text = r, Value = r});
+        //    return View();
+        //}
 
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel registerModel, string redirectUrl) {
@@ -53,12 +53,11 @@ namespace SiteMVC.Controllers {
             return View();
         }
 
-        [HttpGet]
-        public ActionResult Login(string redirectUrl) {
-            ViewBag.RedirectUrl = redirectUrl;
-            return View();
-
-        }
+        //[HttpGet]
+        //public ActionResult Login(string redirectUrl) {
+        //    ViewBag.RedirectUrl = redirectUrl;
+        //    return View();
+        //}
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginModel, string redirectUrl) {
             // Que fait cette condition ? Pris dans le skillpipe
@@ -68,6 +67,7 @@ namespace SiteMVC.Controllers {
                     // TODO : redirection après Login. À la page de départ ? voir skillpipe
                     // idem pour Logout
                     if (!redirectUrl.IsNullOrEmpty()) {
+                        // TODO : sécurité de la redirection ?
                         return Redirect(redirectUrl);
                     }
                     else {
