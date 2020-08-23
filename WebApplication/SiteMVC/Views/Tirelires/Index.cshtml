@@ -10,15 +10,16 @@
     <a asp-action="Create">Create New</a>
 </p>
 @foreach (var item in Model) {
-    string imageDataUrl = "";
-    Photo img = item.Photo.OrderByDescending(i => i.Id).FirstOrDefault();
-    if (img != null) {
-        string imageBase64 = Convert.ToBase64String(img.Image);
+    //string imageDataUrl = "";
+    //Photo img = item.Photo.OrderByDescending(i => i.Id).FirstOrDefault();
+    int photoId = item.Photo.OrderByDescending(i => i.Id).FirstOrDefault().Id;
+    //if (img != null) {
+    //    string imageBase64 = Convert.ToBase64String(img.Image);
 
-        imageDataUrl = string.Format("data:image/jpg;base64,{0}", imageBase64);
-    }
+    //    imageDataUrl = string.Format("data:image/jpg;base64,{0}", imageBase64);
+    //}
     <div>
-        <a asp-action="Details" asp-route-id="@item.Id"><img class="" src="@imageDataUrl" /></a>
+        <a asp-action="Details" asp-route-id="@item.Id"><img class="" src="@Url.Action("GetImage", "Photos", new { id = photoId })" /></a>
     </div>
     <div>
         <p>@item.Nom : @item.PrixUnitaire euros</p>

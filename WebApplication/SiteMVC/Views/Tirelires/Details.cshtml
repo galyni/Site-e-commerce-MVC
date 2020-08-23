@@ -55,26 +55,26 @@
     </dl>
 </div>
 @foreach (Photo photo in Model.Photo) {
-    string imageDataUrl = "";
-    string imageBase64 = Convert.ToBase64String(photo.Image);
-    imageDataUrl = string.Format("data:image/jpg;base64,{0}", imageBase64);
+    //string imageDataUrl = "";
+    //string imageBase64 = Convert.ToBase64String(photo.Image);
+    //imageDataUrl = string.Format("data:image/jpg;base64,{0}", imageBase64);
     string target = String.Concat("modalPhoto", photo.Id);
 
     <!--TODO : taille des images (style css)-->
     <div class="photo-display">
         <!--TODO : attributs liés à la modale directement dans la balise img + changement gestion photos-->
-        <img class="photo-display-img" data-toggle="modal" data-target="#@target" src="@imageDataUrl" />
+        <img class="photo-display-img" @*data-toggle="modal" data-target="#@target"*@ src="@Url.Action("GetImage", "Photos", new { id = photo.Id })" />
     </div>
-    <div id="@target" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+    <!--<div id="@target" class="modal fade" role="dialog">
+        <div class="modal-dialog">-->
             <!-- Modal content-->
-            <div class="modal-content">
+            <!--<div class="modal-content">
                 <div class="modal-body">
-                    <img class="photo-display-img" src="@imageDataUrl" />
+                    <img class="photo-display-img" src="@@imageDataUrl" />
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 }
 
 <!-- TODO:affichage et acces conditionné aux droits -->

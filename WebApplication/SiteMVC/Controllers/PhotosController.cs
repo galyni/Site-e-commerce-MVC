@@ -88,5 +88,13 @@ namespace SiteMVC.Controllers {
                 return View();
             }
         }
+        public ActionResult GetImage(int id) {
+            Photo photo = _photoRepository.GetById(id);
+            //string imageDataUrl = "";
+            //string imageBase64 = Convert.ToBase64String(photo.Image);
+            //imageDataUrl = string.Format("data:image/jpg;base64,{0}", imageBase64);
+            //var arr = Convert.FromBase64String(imageBase64);
+            return File(photo.Image, "image/jpg", String.Concat(photo.Nom + ".jpg"));
+        }
     }
 }
