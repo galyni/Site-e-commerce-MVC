@@ -54,7 +54,7 @@ namespace SiteMVC.Controllers {
             }
             List<Produit> listeProduits = new List<Produit>();
             foreach (KeyValuePair<int, int> infosProduit in currentCart) {
-                // TODO : mettre en cache cette liste pour l'utiliser dans le CommandesController
+                // TODO : mettre en cache cette liste pour l'utiliser dans le CommandesController ?
                 Produit produit = _produitRepository.GetById(infosProduit.Key);
                 listeProduits.Add(produit);
                 // Pour associer la quantité au produit
@@ -68,12 +68,25 @@ namespace SiteMVC.Controllers {
         //public ActionResult Details(int id) {
         //    return View();
         //}
+        [HttpGet]
+        public ActionResult Delete(int id) {
+            string currentCartSerialized = HttpContext.Session.GetString("Cart");
+            Dictionary<int, int> currentCart = JsonConvert.DeserializeObject<Dictionary<int, int>>(currentCartSerialized);
+            currentCart.Remove(id);
+            currentCartSerialized = JsonConvert.SerializeObject(currentCart);
+            HttpContext.Session.SetString("Cart", currentCartSerialized);
+            return RedirectToAction("SeeCart");
+        }
 
-
-        //// GET: PanierController/Edit/5
-        //public ActionResult Edit(int id) {
-        //    return View();
-        //}
+        [HttpPost]
+        public ActionResult Edit(int id, int quantite) {
+            string currentCartSerialized = HttpContext.Session.GetString("Cart");
+            Dictionary<int, int> currentCart = JsonConvert.DeserializeObject<Dictionary<int, int>>(currentCartSerialized);
+            currentCart[id] = quantite;
+            currentCartSerialized = JsonConvert.SerializeObject(currentCart);
+            HttpContext.Session.SetString("Cart", currentCartSerialized);
+            return RedirectToAction("SeeCart");
+        }
 
 
     }

@@ -27,7 +27,10 @@
                 <p>Sous-total</p>
             </th>
             <th>
-
+            </th>
+            <th>
+            </th>
+            <th>
             </th>
         </tr>
     </thead>
@@ -53,9 +56,23 @@
                     <p>@sousTotal</p>
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <!--TODO : changer en Ajax !-->
+                    <form method="post" asp-action="Edit" asp-controller="Panier" asp-route-id="@item.Id">
+                        <div asp-validation-summary="All"></div>
+                        <div class="form-field">
+                            <input type="number" min="1" max="@item.Stock" id="quantite" name="quantite" required value="@quantite" />
+                        </div>
+                        <div class="form-field">
+                            <input type="submit" value="Changer la quantite" />
+                        </div>
+                    </form>
+                    @*<a asp-action="Edit" asp-route-id="@item.Id">Changer la quantité</a> |*@
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-controller="Panier" asp-route-id="@item.Id">Annuler la commande de cet objet</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-controller="Tirelires" asp-route-id="@item.Id">Voir la page de l'objet</a> |
                 </td>
             </tr>
         }
@@ -66,18 +83,17 @@
     @{
         int fraisLivraison = (int)(totalPrix / (decimal)1.5) * 3;
         total = totalPrix + fraisLivraison;
-        }
+    }
     <p>Frais de livraison : @fraisLivraison euros </p>
     <p>Total à payer : @total euros</p>
 </div>
 <div>
     @if (!User.Identity.IsAuthenticated) {
         // TODO : mise en forme des boutons
-        <p>Vous devez @*<a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register" asp-route-redirectUrl="@Url.PageLink()">*@<a class="nav-link text-dark" data-toggle="modal" data-target="#registerModal">créer un compte</a> ou vous <a class="nav-link text-dark" data-toggle="modal" data-target="#loginModal">identifier</a> pour commander.</p>
+        <p>Vous devez <a class="nav-link text-dark" data-toggle="modal" data-target="#registerModal">créer un compte</a> ou vous <a class="nav-link text-dark" data-toggle="modal" data-target="#loginModal">identifier</a> pour commander.</p>
     }
     else if (User.IsInRole("User")) {
         <a class="nav-link text-dark" asp-area="" asp-controller="Commandes" asp-action="Validate" asp-route-total="@total">Valider la commande</a>
-        <!--TODO : formulaire de création de client comme View Component ou vue partielle ici  ? Pas nécessaire en fait !-->
     }
     else {
         <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Log out</a>
