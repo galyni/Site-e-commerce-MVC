@@ -36,6 +36,7 @@ namespace SiteMVC.Controllers {
 
         [Authorize(Roles = "User")]
         [Route("Commandes/IndexClient")]
+        // TODO : tester Users n'ayant jamais passé de commandes -> gestion d'exceptions
         public async Task<ActionResult> IndexClientAsync() {
             WebsiteUser currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
             string userMail = await _userManager.GetEmailAsync(currentUser);
@@ -44,8 +45,11 @@ namespace SiteMVC.Controllers {
         }
 
         // GET: CommandesController/Details/5
-        public ActionResult Details(int id) {
-            return View(_depotCommandes.GetById(id));
+        [Route("Commandes/Details")]
+        //TODO : supprimer vue Commandes/Details.cshtml
+        public ActionResult DetailsCommande(int idCommande) {
+            var liste = _depotDetail.GetList().Where(d => d.IdCommande == idCommande);
+            return View(liste);
         }
 
         // GET: CommandesController/Create

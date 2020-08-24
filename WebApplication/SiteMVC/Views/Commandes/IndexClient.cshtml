@@ -27,7 +27,6 @@
             <th>
                 Adresse mail
             </th>
-
             <th></th>
         </tr>
     </thead>
@@ -50,7 +49,7 @@
                 @Html.DisplayFor(modelItem => item.IdClientNavigation.Mail)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Details" asp-route-idCommande="@item.Id">Details</a> |
             </td>
         </tr>
 }

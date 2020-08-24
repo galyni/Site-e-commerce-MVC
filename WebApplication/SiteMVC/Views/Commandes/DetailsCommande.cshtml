@@ -1,0 +1,62 @@
+﻿@model IEnumerable<SiteMVC.DetailCommande>
+
+@{
+    ViewData["Title"] = "DetailsCommande";
+}
+
+<h1>DetailsCommande</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PrixUnitaire)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantite)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdCommandeNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdProduitNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrixUnitaire)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantite)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdCommandeNavigation.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdProduitNavigation.Nom)
+                </td>
+                <td>
+                    @if (User.IsInRole("User")) {
+                        <a asp-action="Create" asp-controller="Avis" asp-route-idProduit="@item.IdProduit" asp-route-idDetail="@item.Id">Donner votre avis</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |*@
+    @if (User.IsInRole("Administrator")) {
+        <a asp-action="Index">Back to List</a>
+    }
+    @if (User.IsInRole("User")) {
+        <a asp-action="IndexClient">Back to List</a>
+    }
+</div>
