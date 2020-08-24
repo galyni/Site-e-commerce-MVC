@@ -19,7 +19,7 @@
     //    imageDataUrl = string.Format("data:image/jpg;base64,{0}", imageBase64);
     //}
     <div>
-        <a asp-action="Details" asp-route-id="@item.Id"><img class="" src="@Url.Action("GetImage", "Photos", new { id = photoId })" /></a>
+        <a asp-action="Details" asp-route-id="@item.Id"><img class="thumbnail" src="@Url.Action("GetImage", "Photos", new { id = photoId })" /></a>
     </div>
     <div>
         <p>@item.Nom : @item.PrixUnitaire euros</p>

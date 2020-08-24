@@ -61,24 +61,24 @@
     string target = String.Concat("modalPhoto", photo.Id);
 
     <!--TODO : taille des images (style css)-->
-    <div class="photo-display">
+    <div>
         <!--TODO : attributs liés à la modale directement dans la balise img + changement gestion photos-->
-        <img class="photo-display-img" @*data-toggle="modal" data-target="#@target"*@ src="@Url.Action("GetImage", "Photos", new { id = photo.Id })" />
+        <img class="thumbnail img-fluid rounded float-left" data-toggle="modal" data-target="#@target" src="@Url.Action("GetImage", "Photos", new { id = photo.Id })" />
     </div>
-    <!--<div id="@target" class="modal fade" role="dialog">
-        <div class="modal-dialog">-->
-            <!-- Modal content-->
-            <!--<div class="modal-content">
+    <div id="@target" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+             Modal content
+            <div class="modal-content">
                 <div class="modal-body">
-                    <img class="photo-display-img" src="@@imageDataUrl" />
+                    <img class="img-fluid rounded" src="@Url.Action("GetImage", "Photos", new { id = photo.Id })" />
                 </div>
             </div>
         </div>
-    </div>-->
+    </div>
 }
 
 <!-- TODO:affichage et acces conditionné aux droits -->
-<div>
+<div id="addToCart">
     <form method="post" asp-action="AddToCart" asp-controller="Panier" asp-route-id="@Model.Id">
         <div asp-validation-summary="All"></div>
         <div class="form-field">
