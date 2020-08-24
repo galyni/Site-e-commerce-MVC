@@ -65,7 +65,10 @@
                             @if (User.IsInRole("Moderator")) {
                                 <li class="nav-item">Statut : Moderateur</li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Avis" asp-action="ListeAModerer">Avis à modérer</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Avis" asp-action="Index">Liste des avis</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Avis" asp-action="AttenteModeration">Avis à modérer</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Avis" asp-action="Index">Avis</a>

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<SiteMVC.Avis>
+
+@{
+    ViewData["Title"] = "AttenteModeration";
+}
+
+<h1>AttenteModeration</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Note)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valide)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Moderateur)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contenu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdClientNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdProduitNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Note)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Valide)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Moderateur)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contenu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdClientNavigation.Mail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdProduitNavigation.Nom)
+            </td>
+            <td>
+                <a asp-action="Review" asp-route-id="@item.Id">Details</a> |
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

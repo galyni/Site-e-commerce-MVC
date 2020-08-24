@@ -11,7 +11,7 @@ using SiteMVC.Models.ViewModels;
 using SiteMVC.Repositories;
 
 namespace SiteMVC.Controllers {
-    [Authorize(Roles ="Moderator, User")]
+    [Authorize(Roles = "Moderator, User")]
     public class AvisController : Controller {
         private IRepository<Avis> _avisRepository;
         private IRepository<Produit> _produitRepository;
@@ -38,8 +38,29 @@ namespace SiteMVC.Controllers {
         }
 
         [Authorize(Roles = "Moderator")]
-        public ActionResult ListeAModerer() {
-            return View();
+        public ActionResult AttenteModeration() {
+            var liste = _avisRepository.GetList().Where(a => a.Valide == null);
+            return View(liste);
+        }
+
+        [Authorize(Roles = "Moderator")]
+        public ActionResult Review(int id) {
+            Avis avis = _avisRepository.GetById(id);
+            return View(avis);
+        }
+
+        [Authorize(Roles = "Moderator")]
+        public ActionResult Validate(int id, bool validate) {
+            Avis avis = _avisRepository.GetById(id);
+            if (validate) {
+                avis.Valide = true;
+                avis.Moderateur = User.Identity.Name;
+                _avisRepository.Update(avis);
+            }
+            else {
+                _avisRepository.Delete(avis);
+            }
+            return RedirectToAction("AttenteModeration");
         }
 
         [HttpGet]
@@ -56,13 +77,13 @@ namespace SiteMVC.Controllers {
         // POST: Couleurs/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles ="User")]
+        [Authorize(Roles = "User")]
         public ActionResult Create(AvisViewModel avisViewModel) {
             try {
                 Avis avis = new Avis {
                     IdClient = avisViewModel.IdClient,
                     IdProduit = avisViewModel.IdProduit,
-                    Note=avisViewModel.Note,
+                    Note = avisViewModel.Note,
                     Date = DateTime.Now,
                     Contenu = avisViewModel.Contenu
                 };
@@ -94,22 +115,22 @@ namespace SiteMVC.Controllers {
         //}
 
         // GET: Couleurs/Delete/5
-        public ActionResult Delete(int id) {
-            var item = _avisRepository.GetById(id);
-            return View(item);
-        }
+        //    public ActionResult Delete(int id) {
+        //        var item = _avisRepository.GetById(id);
+        //        return View(item);
+        //    }
 
-        // POST: Couleurs/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(Avis avis) {
-            try {
-                _avisRepository.Delete(avis);
-                return RedirectToAction(nameof(Index));
-            }
-            catch {
-                return View();
-            }
-        }
+        //    // POST: Couleurs/Delete/5
+        //    [HttpPost]
+        //    [ValidateAntiForgeryToken]
+        //    public ActionResult Delete(Avis avis) {
+        //        try {
+        //            _avisRepository.Delete(avis);
+        //            return RedirectToAction(nameof(Index));
+        //        }
+        //        catch {
+        //            return View();
+        //        }
+        //    }
     }
 }
