@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using SiteMVC.Models;
@@ -21,7 +22,7 @@ namespace SiteMVC.Controllers {
         private IRepository<Client> _depotClients;
         private UserManager<WebsiteUser> _userManager;
 
-        // TODO : segmenter ce controller, ou utiliser d'autres controllers existants
+        // TODO : segmenter ce controller, ou utiliser d'autres controllers existants, ou instancier les depots au moment de l'usage ?
         public CommandesController(IRepository<Commande> depotCommandes, IRepository<DetailCommande> depotDetail, IRepository<Produit> depotProduits, IRepository<Client> depotClients, UserManager<WebsiteUser> userManager) {
             _depotCommandes = depotCommandes;
             _depotDetail = depotDetail;
@@ -57,6 +58,22 @@ namespace SiteMVC.Controllers {
             foreach (var item in top) {
                 liste.Add(_depotProduits.GetById(item.Key));
                 ViewData[item.Key.ToString()] = item.Count;
+            }
+            return View(liste);
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public ActionResult TopClients() {
+            var top = _depotCommandes.GetList()
+                .GroupBy(c => c.IdClient)
+                .Select(group => new { Key = group.Key, Total = group.Sum(ligne => ligne.Total) })
+                .OrderByDescending(group => group.Total)
+                .Take(5)
+                .ToList();
+            List<Client> liste = new List<Client>();
+            foreach(var item in top) {
+                liste.Add(_depotClients.GetById(item.Key));
+                ViewData[item.Key.ToString()] = item.Total;
             }
             return View(liste);
         }

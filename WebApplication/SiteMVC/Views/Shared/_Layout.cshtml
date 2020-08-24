@@ -59,6 +59,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="Index">Clients</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Commandes" asp-action="TopClients">Top 5 clients</a>
+                                </li>
                             }
                             @if (User.IsInRole("User")) {
                                 <li class="nav-item">
