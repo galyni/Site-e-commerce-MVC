@@ -3,7 +3,7 @@
 
 @{
     ViewData["Title"] = "SeeCart";
-    decimal total = 0;
+    decimal totalPrix = 0, poids = 0, total;
 }
 <!--TODO : suppression et modification des objets et des quantités-->
 <h1>SeeCart</h1>
@@ -35,7 +35,9 @@
         @foreach (var item in Model) {
             int quantite = (int)ViewData[item.Id.ToString()];
             decimal sousTotal = quantite * item.PrixUnitaire;
-            total += sousTotal;
+            totalPrix += sousTotal;
+            //TODO : rendre le poids non nullable
+            poids += (decimal)item.Poids;
 
             <tr>
                 <td>
@@ -60,7 +62,13 @@
     </tbody>
 </table>
 <div>
-    <p>Total de la commande : @total euros</p>
+    <p>Total de la commande : @totalPrix euros</p>
+    @{
+        int fraisLivraison = (int)(totalPrix / (decimal)1.5) * 3;
+        total = totalPrix + fraisLivraison;
+        }
+    <p>Frais de livraison : @fraisLivraison euros </p>
+    <p>Total à payer : @total euros</p>
 </div>
 <div>
     @if (!User.Identity.IsAuthenticated) {
