@@ -19,8 +19,26 @@ namespace SiteMVC.Controllers {
             _repositoryAdresse = repositoryAdresse;
         }
         // GET: ClientController
+        [Authorize(Roles ="Administrator")]
         public ActionResult Index() {
-            return View();
+            return View(_depotClient.GetList());
+        }
+
+        // TODO : gestion du statut du client
+        [Authorize(Roles ="Administrator")]
+        public ActionResult Desactivate(int id) {
+            Client client = _depotClient.GetById(id);
+            client.Actif = false;
+            _depotClient.Update(client);
+            return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Reactivate(int id) {
+            Client client = _depotClient.GetById(id);
+            client.Actif = true;
+            _depotClient.Update(client);
+            return RedirectToAction("Index");
         }
 
         // GET: ClientController/Details/5
