@@ -1,0 +1,11 @@
+﻿
+@model IEnumerable<SiteMVC.Produit>
+
+<h4>Produits de couleur similaire :</h4>
+
+@foreach (var item in Model) {
+    <div>
+        <p>@item.Nom : @item.PrixUnitaire euros</p>
+        <a asp-action="Details" asp-route-id="@item.Id"><img class="thumbnail img-fluid rounded float-left" src="@Url.Action("GetImage", "Photos", new { id = item.Photo.FirstOrDefault().Id })" /></a>
+    </div>
+}

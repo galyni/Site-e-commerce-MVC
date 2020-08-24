@@ -12,17 +12,17 @@ using SiteMVC.Repositories;
 
 namespace SiteMVC.Controllers {
     public class TireliresController : Controller {
-        IRepository<Produit> _repository;
+        IRepository<Produit> _produitRepository;
 
         public TireliresController(IRepository<Produit> produitRepository) {
-            _repository = produitRepository;
+            _produitRepository = produitRepository;
         }
 
         // GET: Tirelires
         // TODO : rendre invisibles les produits désactivés
         public IActionResult Index() {
             //var tireliresContext = _context.Produit.Include(p => p.IdCategorieNavigation).Include(p => p.IdCouleurNavigation).Include(p => p.IdFabricantNavigation).Include(p => p.IdFournisseurNavigation);
-            var liste = _repository.GetList();
+            var liste = _produitRepository.GetList();
             foreach (Produit p in liste) {
                 //_repository.GetPhoto(p);
             }
@@ -31,7 +31,7 @@ namespace SiteMVC.Controllers {
 
         // TODO : rendre impossible la commande de produits dont le stock est éro (incohérence avec la règle du champ ?)
         public ActionResult Details(int id) {
-            return View(_repository.GetById(id));
+            return View(_produitRepository.GetById(id));
         }
 
 
@@ -46,7 +46,7 @@ namespace SiteMVC.Controllers {
         [Authorize(Roles = "Administrator")]
         public ActionResult Create(Produit produit) {
             try {
-                _repository.Create(produit);
+                _produitRepository.Create(produit);
                 return RedirectToAction(nameof(Index));
             }
             catch {
@@ -58,7 +58,7 @@ namespace SiteMVC.Controllers {
         [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int id) {
             GetNavigationProperties();
-            return View(_repository.GetById(id));
+            return View(_produitRepository.GetById(id));
         }
 
         [HttpPost]
@@ -66,7 +66,7 @@ namespace SiteMVC.Controllers {
         [Authorize(Roles = "Administrator")]
         public ActionResult Edit(Produit produit) {
             try {
-                _repository.Update(produit);
+                _produitRepository.Update(produit);
                 return RedirectToAction(nameof(Index));
             }
             catch {
@@ -77,7 +77,7 @@ namespace SiteMVC.Controllers {
 
         [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int id) {
-            return View(_repository.GetById(id));
+            return View(_produitRepository.GetById(id));
         }
 
         [HttpPost]
@@ -85,7 +85,7 @@ namespace SiteMVC.Controllers {
         [Authorize(Roles = "Administrator")]
         public ActionResult Delete(Produit produit) {
             try {
-                _repository.Delete(produit);
+                _produitRepository.Delete(produit);
                 return RedirectToAction(nameof(Index));
             }
             catch {
