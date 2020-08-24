@@ -1,0 +1,113 @@
+﻿@model IEnumerable<SiteMVC.Produit>
+
+@{
+    ViewData["Title"] = "TopProduits";
+}
+
+<h1>TopProduits</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrixUnitaire)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hauteur)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Longueur)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Largeur)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Poids)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Capacite)
+            </th>
+            <th>
+                Nombre de ventes
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Statut)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdCategorieNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdCouleurNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdFabricantNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdFournisseurNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrixUnitaire)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hauteur)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Longueur)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Largeur)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Poids)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Capacite)
+            </td>
+            <td>
+                @ViewData[item.Id.ToString()]
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Statut)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCategorieNavigation.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCouleurNavigation.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdFabricantNavigation.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdFournisseurNavigation.Nom)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

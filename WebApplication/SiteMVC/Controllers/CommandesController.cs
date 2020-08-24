@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using SiteMVC.Models;
 using SiteMVC.Repositories;
@@ -29,7 +30,7 @@ namespace SiteMVC.Controllers {
             _userManager = userManager;
         }
         //GET: CommandesController
-        [Authorize(Roles ="Administrator")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index() {
             return View("Index", _depotCommandes.GetList());
         }
@@ -40,8 +41,24 @@ namespace SiteMVC.Controllers {
         public async Task<ActionResult> IndexClientAsync() {
             WebsiteUser currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
             string userMail = await _userManager.GetEmailAsync(currentUser);
-            var liste = _depotCommandes.GetList().Where(c=>c.IdClientNavigation.Mail == userMail);
+            var liste = _depotCommandes.GetList().Where(c => c.IdClientNavigation.Mail == userMail);
             return View("IndexClient", liste);
+        }
+
+        [AllowAnonymous]
+        public ActionResult TopProduits() {
+            var top = _depotDetail.GetList()
+                .GroupBy(d => d.IdProduit)
+                .Select(group => new { Key = group.Key, Count = group.Count() })
+                .OrderByDescending(group => group.Count)
+                .Take(5)
+                .ToList();
+            List<Produit> liste = new List<Produit>();
+            foreach (var item in top) {
+                liste.Add(_depotProduits.GetById(item.Key));
+                ViewData[item.Key.ToString()] = item.Count;
+            }
+            return View(liste);
         }
 
         // GET: CommandesController/Details/5
@@ -54,15 +71,14 @@ namespace SiteMVC.Controllers {
 
         // GET: CommandesController/Create
         [Route("Commandes/Validate/{total}")]
-        [Authorize(Roles ="User")]
-        public async Task<ActionResult> ValidateAsync(decimal total) 
-            {
+        [Authorize(Roles = "User")]
+        public async Task<ActionResult> ValidateAsync(decimal total) {
             // Test si le User existe en tant que client, par l'adresse mail (requise comme unique)
             //TODO : unicité de l'adresse mail
             WebsiteUser currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
             string userMail = await _userManager.GetEmailAsync(currentUser);
             Client client = _depotClients.GetList().Where(c => c.Mail == userMail).SingleOrDefault();
-            
+
             //Si nouveau client, on envoie au controller, en stockant le total, dont on aura besoin
             if (client == null) {
                 string totalSerialized = JsonConvert.SerializeObject(total);
@@ -70,11 +86,12 @@ namespace SiteMVC.Controllers {
                 return RedirectToAction("Create", "Client", new { mail = userMail });
             }
             else {
-                Commande commande = new Commande() { 
-                    IdClient = client.Id, 
-                    DateCommande = DateTime.Now, 
-                    IdStatut = 1, Total = total, 
-                    IdAdresse = client.IdAdresse 
+                Commande commande = new Commande() {
+                    IdClient = client.Id,
+                    DateCommande = DateTime.Now,
+                    IdStatut = 1,
+                    Total = total,
+                    IdAdresse = client.IdAdresse
                 };
                 // TODO : gestion d'exception (ici et dans toute cette méthode)
                 commande = _depotCommandes.Create(commande);
@@ -83,11 +100,11 @@ namespace SiteMVC.Controllers {
                 List<KeyValuePair<int, int>> currentCart = JsonConvert.DeserializeObject<List<KeyValuePair<int, int>>>(currentCartSerialized);
                 foreach (KeyValuePair<int, int> infosProduit in currentCart) {
                     Produit produit = _depotProduits.GetById(infosProduit.Key);
-                    DetailCommande detailCommande = new DetailCommande() { 
-                        IdCommande = commande.Id, 
-                        IdProduit=produit.Id,
-                        PrixUnitaire=produit.PrixUnitaire,
-                        Quantite=infosProduit.Value
+                    DetailCommande detailCommande = new DetailCommande() {
+                        IdCommande = commande.Id,
+                        IdProduit = produit.Id,
+                        PrixUnitaire = produit.PrixUnitaire,
+                        Quantite = infosProduit.Value
                     };
                     _depotDetail.Create(detailCommande);
                 }
