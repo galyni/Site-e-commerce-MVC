@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Policy;
 using System.Threading.Tasks;
+using Castle.Core.Internal;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Newtonsoft.Json;
 using SiteMVC.Repositories;
 
 namespace SiteMVC.Controllers {
@@ -29,8 +31,15 @@ namespace SiteMVC.Controllers {
             return View(liste);
         }
 
-        // TODO : rendre impossible la commande de produits dont le stock est éro (incohérence avec la règle du champ ?)
+        // TODO : rendre impossible la commande de produits dont le stock est zéro (incohérence avec la règle du champ ?)
         public ActionResult Details(int id) {
+            string currentCartSerialized = HttpContext.Session.GetString("Cart");
+            if (!currentCartSerialized.IsNullOrEmpty()) {
+                var currentCart = JsonConvert.DeserializeObject<Dictionary<int, int>>(currentCartSerialized);
+                if (currentCart.ContainsKey(id)) {
+                    ViewBag.QuantiteActuelle = currentCart[id];
+                }
+            }
             return View(_produitRepository.GetById(id));
         }
 

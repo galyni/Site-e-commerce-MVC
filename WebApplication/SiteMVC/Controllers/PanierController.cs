@@ -69,12 +69,12 @@ namespace SiteMVC.Controllers {
         //    return View();
         //}
 
-        
+
         //// GET: PanierController/Edit/5
         //public ActionResult Edit(int id) {
         //    return View();
         //}
 
-        
+
     }
 }
