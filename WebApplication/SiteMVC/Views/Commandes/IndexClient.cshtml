@@ -1,0 +1,58 @@
+﻿@model IEnumerable<SiteMVC.Commande>
+
+@{
+    ViewData["Title"] = "IndexClient";
+}
+
+<h1>IndexClient</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCommande)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateLivraison)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th>
+                Adresse de livraison
+            </th>
+            <th>
+                Adresse mail
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCommande)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateLivraison)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @item.IdAdresseNavigation.ToString()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdClientNavigation.Mail)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -55,6 +55,14 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Couleurs" asp-action="Index">Couleurs</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Commandes" asp-action="Index">Commandes</a>
+                                </li>
+                            }
+                            @if (User.IsInRole("User")) {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Commandes" asp-action="IndexClient">Commandes</a>
+                            </li>
                             }
                         }
                         <li class="nav-item">

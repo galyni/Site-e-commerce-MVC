@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System;
 using System.Collections.Generic;
 
 namespace SiteMVC
@@ -22,5 +23,9 @@ namespace SiteMVC
         public virtual ICollection<Client> Client { get; set; }
         public virtual ICollection<Commande> Commande { get; set; }
         public virtual ICollection<Fournisseur> Fournisseur { get; set; }
+
+        public override string ToString() {
+            return $"{Numero} {Rue} {CodePostal} {Ville} {Pays}";
+        }
     }
 }

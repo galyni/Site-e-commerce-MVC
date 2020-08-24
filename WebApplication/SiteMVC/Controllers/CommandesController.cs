@@ -11,7 +11,7 @@ using SiteMVC.Models;
 using SiteMVC.Repositories;
 
 namespace SiteMVC.Controllers {
-    [Authorize(Roles ="User")]
+    [Authorize]
     public class CommandesController : Controller {
         // TODO : harmoniser les noms et factoriser les controllers avec un générique
         private IRepository<Commande> _depotCommandes;
@@ -28,18 +28,29 @@ namespace SiteMVC.Controllers {
             _depotClients = depotClients;
             _userManager = userManager;
         }
-        // GET: CommandesController
-        //public ActionResult Index() {
-        //    return View();
-        //}
+        //GET: CommandesController
+        [Authorize(Roles ="Administrator")]
+        public ActionResult Index() {
+            return View("Index", _depotCommandes.GetList());
+        }
 
-        //// GET: CommandesController/Details/5
-        //public ActionResult Details(int id) {
-        //    return View();
-        //}
+        [Authorize(Roles = "User")]
+        [Route("Commandes/IndexClient")]
+        public async Task<ActionResult> IndexClientAsync() {
+            WebsiteUser currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+            string userMail = await _userManager.GetEmailAsync(currentUser);
+            var liste = _depotCommandes.GetList().Where(c=>c.IdClientNavigation.Mail == userMail);
+            return View("IndexClient", liste);
+        }
+
+        // GET: CommandesController/Details/5
+        public ActionResult Details(int id) {
+            return View(_depotCommandes.GetById(id));
+        }
 
         // GET: CommandesController/Create
         [Route("Commandes/Validate/{total}")]
+        [Authorize(Roles ="User")]
         public async Task<ActionResult> ValidateAsync(decimal total) 
             {
             // Test si le User existe en tant que client, par l'adresse mail (requise comme unique)
