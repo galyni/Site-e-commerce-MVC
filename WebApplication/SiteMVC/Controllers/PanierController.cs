@@ -24,15 +24,19 @@ namespace SiteMVC.Controllers {
         [HttpPost]
         public ActionResult AddToCart(int id, int quantite) {
             string currentCartSerialized = HttpContext.Session.GetString("Cart");
-            List<KeyValuePair<int, int>> currentCart;
+            Dictionary<int, int> currentCart;
             if (currentCartSerialized.IsNullOrEmpty()) {
-                currentCart = new List<KeyValuePair<int, int>>();
-                currentCart.Add(new KeyValuePair<int, int>(id, quantite));
+                currentCart = new Dictionary<int, int>();
+                currentCart[id] = quantite;
             }
             else {
-                currentCart = JsonConvert.DeserializeObject<List<KeyValuePair<int, int>>>(currentCartSerialized);
-                // TODO : cas où l'objet est déjà commandé : ajouter la quantité (attention au stock)
-                currentCart.Add(new KeyValuePair<int, int>(id, quantite));
+                currentCart = JsonConvert.DeserializeObject<Dictionary<int, int>>(currentCartSerialized);
+                if (currentCart.ContainsKey(id)) {
+                    currentCart[id] += quantite;
+                }
+                else {
+                    currentCart[id] = quantite;
+                }
             }
             currentCartSerialized = JsonConvert.SerializeObject(currentCart);
             HttpContext.Session.SetString("Cart", currentCartSerialized);
@@ -41,12 +45,12 @@ namespace SiteMVC.Controllers {
         // GET: PanierController
         public ActionResult SeeCart() {
             string currentCartSerialized = HttpContext.Session.GetString("Cart");
-            List<KeyValuePair<int, int>> currentCart;
+            Dictionary<int, int> currentCart;
             if (currentCartSerialized.IsNullOrEmpty()) {
                 return RedirectToAction("Index", "Tirelires");
             }
             else {
-                currentCart = JsonConvert.DeserializeObject<List<KeyValuePair<int, int>>>(currentCartSerialized);
+                currentCart = JsonConvert.DeserializeObject<Dictionary<int, int>>(currentCartSerialized);
             }
             List<Produit> listeProduits = new List<Produit>();
             foreach (KeyValuePair<int, int> infosProduit in currentCart) {
