@@ -102,6 +102,11 @@ namespace SiteMVC {
                 endpoints.MapRazorPages();
 
                 endpoints.MapControllerRoute(
+                    name: "Fiche",
+                pattern: "Fiche/{id}",
+                defaults: new { controller = "Tirelires", action = "Details"});
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Tirelires}/{action=Index}/{id?}");
             });
