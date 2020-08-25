@@ -16,6 +16,7 @@ namespace SiteMVC.Controllers {
     [Authorize]
     public class CommandesController : Controller {
         // TODO : harmoniser les noms et factoriser les controllers avec un générique
+        // TODO : injecter dans les méthodes
         private IRepository<Commande> _depotCommandes;
         private IRepository<DetailCommande> _depotDetail;
         private IRepository<Produit> _depotProduits;

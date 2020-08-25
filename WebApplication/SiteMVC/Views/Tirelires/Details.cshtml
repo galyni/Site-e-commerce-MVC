@@ -105,6 +105,10 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+<div id="listeAvis">
+    @await Component.InvokeAsync("Avis", new { couleurId = Model.IdCouleur, produitId = Model.Id })
+</div>
+
 <div id="galerieSimilaires">
     @await Component.InvokeAsync("Galerie", new { couleurId = Model.IdCouleur, produitId = Model.Id } )
 </div>

@@ -1,0 +1,43 @@
+﻿
+@model IEnumerable<SiteMVC.Avis>
+
+<h4>Quelques avis :</h4>
+
+@foreach (var item in Model) {
+    <div class="float-left">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(modelItem => item.Note)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(modelItem => item.Date)
+                    </th>
+                    <th>
+                    @Html.DisplayNameFor(modelItem => item.Contenu)
+                    </th>
+                    <th>
+                        Client
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Note)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Contenu)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdClientNavigation.Nom)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+}
