@@ -14,13 +14,6 @@ namespace SiteMVC.Controllers {
             _produitRepository = produitRepository;
         }
 
-        // TODO : vue partielle ou modale pour choix quantite ?
-        //[HttpGet]
-        //public ActionResult AddToCart(int id) {        // ajouter la quantite a Details, voire creer une vue intermediaire
-        //    
-        //    return RedirectToAction("Index", "Tirelires");      // Retour à la page gallerie
-        //}
-
         [HttpPost]
         public ActionResult AddToCart(int id, int quantite) {
             string currentCartSerialized = HttpContext.Session.GetString("Cart");
@@ -54,7 +47,7 @@ namespace SiteMVC.Controllers {
             }
             List<Produit> listeProduits = new List<Produit>();
             foreach (KeyValuePair<int, int> infosProduit in currentCart) {
-                // TODO : mettre en cache cette liste pour l'utiliser dans le CommandesController ?
+                // TODO : performance : mettre en cache cette liste pour l'utiliser dans le CommandesController ?
                 Produit produit = _produitRepository.GetById(infosProduit.Key);
                 listeProduits.Add(produit);
                 // Pour associer la quantité au produit

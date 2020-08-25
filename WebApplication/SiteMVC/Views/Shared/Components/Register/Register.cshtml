@@ -1,8 +1,10 @@
 ﻿@model SiteMVC.Models.RegisterViewModel
 @{
     ViewData["Title"] = "Register";
-    ViewBag.Roles = new List<string>() { "User", "Administrator", "Moderator" }.Select(
-               r => new SelectListItem { Text = r, Value = r });
+    if (User.IsInRole("Administrator")) {
+        ViewBag.Roles = new List<string>() { "User", "Administrator", "Moderator" }.Select(
+                   r => new SelectListItem { Text = r, Value = r });
+    }
 }
 
 <!--TODO : confirmation pour mail et password + validation + masquage mot de passe-->
@@ -21,12 +23,16 @@
             <label asp-for="Password">Password</label>
             <input asp-for="Password" />
         </div>
-        <!--TODO : masquer pour anonymes + mettre default a User-->
-        <div>
-            <label asp-for="RoleName" class="control-label">Role</label>
-            <select asp-for="RoleName" class="form-control" asp-items="@ViewBag.Roles"></select>
-        </div>
-        <input type="submit" value="Register" />
-    </form>
+        @if (User.IsInRole("Administrator")) {
+            <div>
+                <label asp-for="RoleName" class="control-label">Role</label>
+                <select asp-for="RoleName" class="form-control" asp-items="@ViewBag.Roles"></select>
+            </div>
+        }
+        else {
+            <input type="hidden" asp-for="RoleName" value="User" />
+        }
+            <input type="submit" value="Register" />
+        </form>
 </div>
 

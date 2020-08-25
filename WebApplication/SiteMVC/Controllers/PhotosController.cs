@@ -40,7 +40,6 @@ namespace SiteMVC.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(PhotoViewModel model) {
-            // TODO : modifier toutes les methodes de tous les controllers sur ce shéma ?
             if (ModelState.IsValid && model.PhotoFile != null && model.PhotoFile.Length > 0) {
                 byte[] image;
                 using (var memoryStream = new MemoryStream()) {

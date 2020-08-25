@@ -46,7 +46,6 @@ namespace SiteMVC.Controllers {
             }
         }
 
-        //TODO : implement Edit for Fournisseurs
         // GET: Fournisseurs/Edit/5
         public ActionResult Edit(int id) {
             Fournisseur Fournisseur = _repositoryFournisseur.GetById(id);

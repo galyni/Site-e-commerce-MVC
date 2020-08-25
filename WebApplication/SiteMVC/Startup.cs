@@ -48,7 +48,6 @@ namespace SiteMVC {
             //    .AddEntityFrameworkStores<TireliresContext>();
 
             // Authorization
-            // TODO : autorisations par controller et par methode
             services.AddIdentity<WebsiteUser, IdentityRole>(options => {
                 options.User.RequireUniqueEmail = true;
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -._@+";

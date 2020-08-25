@@ -15,15 +15,15 @@ using SiteMVC.Repositories;
 namespace SiteMVC.Controllers {
     [Authorize]
     public class CommandesController : Controller {
-        // TODO : harmoniser les noms et factoriser les controllers avec un générique
-        // TODO : injecter dans les méthodes
+        // TODO : factorisation : harmoniser les noms et factoriser les controllers avec un générique
+        // TODO : performance : injecter dans les méthodes ?
         private IRepository<Commande> _depotCommandes;
         private IRepository<DetailCommande> _depotDetail;
         private IRepository<Produit> _depotProduits;
         private IRepository<Client> _depotClients;
         private UserManager<WebsiteUser> _userManager;
 
-        // TODO : segmenter ce controller, ou utiliser d'autres controllers existants, ou instancier les depots au moment de l'usage ?
+        // TODO : factorisation :segmenter ce controller, ou utiliser d'autres controllers existants, ou instancier les depots au moment de l'usage ?
         public CommandesController(IRepository<Commande> depotCommandes, IRepository<DetailCommande> depotDetail, IRepository<Produit> depotProduits, IRepository<Client> depotClients, UserManager<WebsiteUser> userManager) {
             _depotCommandes = depotCommandes;
             _depotDetail = depotDetail;
@@ -39,7 +39,6 @@ namespace SiteMVC.Controllers {
 
         [Authorize(Roles = "User")]
         [Route("Commandes/IndexClient")]
-        // TODO : tester Users n'ayant jamais passé de commandes -> gestion d'exceptions
         public async Task<ActionResult> IndexClientAsync() {
             WebsiteUser currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
             string userMail = await _userManager.GetEmailAsync(currentUser);
@@ -81,7 +80,6 @@ namespace SiteMVC.Controllers {
 
         // GET: CommandesController/Details/5
         [Route("Commandes/Details")]
-        //TODO : supprimer vue Commandes/Details.cshtml
         public ActionResult DetailsCommande(int idCommande) {
             var liste = _depotDetail.GetList().Where(d => d.IdCommande == idCommande);
             ViewBag.CommandeId = idCommande;
@@ -93,7 +91,7 @@ namespace SiteMVC.Controllers {
         [Authorize(Roles = "User")]
         public async Task<ActionResult> ValidateAsync(decimal total) {
             // Test si le User existe en tant que client, par l'adresse mail (requise comme unique)
-            //TODO : unicité de l'adresse mail
+            //TODO : identity : unicité de l'adresse mail
             WebsiteUser currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
             string userMail = await _userManager.GetEmailAsync(currentUser);
             Client client = _depotClients.GetList().Where(c => c.Mail == userMail).SingleOrDefault();
@@ -117,7 +115,7 @@ namespace SiteMVC.Controllers {
                 };
                 // TODO : gestion d'exception (ici et dans toute cette méthode)
                 commande = _depotCommandes.Create(commande);
-                //TODO : factoriser ça... (ou TempData ?). Mais peut-être est-on obligés de repasser par là.
+                //TODO : factoriser (ou TempData ?). Mais peut-être est-on obligés de repasser par là.
                 string currentCartSerialized = HttpContext.Session.GetString("Cart");
                 Dictionary<int, int> currentCart = JsonConvert.DeserializeObject<Dictionary<int, int>>(currentCartSerialized);
                 foreach (KeyValuePair<int, int> infosProduit in currentCart) {
@@ -155,7 +153,7 @@ namespace SiteMVC.Controllers {
         //POST: CommandesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        // TODO : rôle supplémentaire qui aurait la responsabilité sur l'avancée de la commande
+        // TODO : rôle supplémentaire qui aurait la responsabilité sur l'avancée de la commande ?
         [Authorize(Roles = "Administrator")]
         public ActionResult Edit(Commande commande) {
             try {

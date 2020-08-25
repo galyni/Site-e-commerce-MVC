@@ -25,7 +25,6 @@ namespace SiteMVC.Controllers {
         //[HttpGet]
         //public ActionResult Register(string redirectUrl) {
         //    ViewBag.RedirectUrl = redirectUrl;
-        //    // TODO : conditionne a l'authentification et au role
         //    ViewBag.Roles = new List<string>() {"User", "Administrator", "Moderator" }.Select(
         //        r => new SelectListItem { Text = r, Value = r});
         //    return View();
@@ -66,10 +65,7 @@ namespace SiteMVC.Controllers {
             if (ModelState.IsValid) {
                 var result = await _signInManager.PasswordSignInAsync(loginModel.Username, loginModel.Password, true, false);
                 if (result.Succeeded) {
-                    // TODO : redirection après Login. À la page de départ ? voir skillpipe
-                    // idem pour Logout
                     if (!redirectUrl.IsNullOrEmpty()) {
-                        // TODO : sécurité de la redirection ?
                         return Redirect(redirectUrl);
                     }
                     else {
@@ -80,14 +76,12 @@ namespace SiteMVC.Controllers {
             ViewBag.RedirectUrl = redirectUrl;
             return View();
         }
-        // TODO page de confirmation Logout ?
         [Authorize]
         public ActionResult Logout(string redirectUrl) {
             if (User.Identity.IsAuthenticated) {
                 _signInManager.SignOutAsync();
             }
             if (!redirectUrl.IsNullOrEmpty()) {
-                // TODO : sécurité de la redirection ?
                 return Redirect(redirectUrl);
             }
             else {

@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 namespace SiteMVC.ViewComponents {
     public class GalerieViewComponent : ViewComponent {
         IRepository<Produit> _produitRepository;
-        // TODO : repenser l'organisation du view component ?
         public GalerieViewComponent(IRepository<Produit> produitRepository) {
             _produitRepository = produitRepository;
         }

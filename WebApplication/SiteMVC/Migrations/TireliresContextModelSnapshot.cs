@@ -544,7 +544,7 @@ namespace SiteMVC.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<decimal?>("Poids")
+                    b.Property<decimal>("Poids")
                         .HasColumnType("decimal(18, 0)");
 
                     b.Property<decimal>("PrixUnitaire")

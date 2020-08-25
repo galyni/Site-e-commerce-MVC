@@ -21,9 +21,7 @@ namespace SiteMVC.Controllers {
         }
 
         // GET: Tirelires
-        // TODO : rendre invisibles les produits désactivés
         public IActionResult Index() {
-            //var tireliresContext = _context.Produit.Include(p => p.IdCategorieNavigation).Include(p => p.IdCouleurNavigation).Include(p => p.IdFabricantNavigation).Include(p => p.IdFournisseurNavigation);
             var liste = _produitRepository.GetList().Where(p=>p.Statut);
             return View(liste);
         }

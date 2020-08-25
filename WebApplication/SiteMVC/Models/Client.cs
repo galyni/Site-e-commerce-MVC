@@ -16,7 +16,6 @@ namespace SiteMVC
         public string Prenom { get; set; }
         public bool Actif { get; set; }
         public int IdAdresse { get; set; }
-        // TODO En faire une propriété de navigation ? Mettre le mail à la place ?
         public string Mail { get; set; }
 
         public virtual Adresse IdAdresseNavigation { get; set; }

@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace SiteMVC.ViewComponents {
     public class CommandeViewComponent : ViewComponent {
         IRepository<Commande> _commandeRepository;
-        // TODO : repenser l'organisation du view component ?
         public CommandeViewComponent(IRepository<Commande> commandeRepository) {
             _commandeRepository = commandeRepository;
         }

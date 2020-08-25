@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SiteMVC.Models;
-// TODO : suppression du controller. Vérifier les références
 namespace SiteMVC.Controllers {
     public class HomeController : Controller {
         private readonly ILogger<HomeController> _logger;

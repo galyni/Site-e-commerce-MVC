@@ -5,7 +5,6 @@
     ViewData["Title"] = "SeeCart";
     decimal totalPrix = 0, poids = 0, total;
 }
-<!--TODO : suppression et modification des objets et des quantités-->
 <h1>SeeCart</h1>
 
 <p>
@@ -39,7 +38,6 @@
             int quantite = (int)ViewData[item.Id.ToString()];
             decimal sousTotal = quantite * item.PrixUnitaire;
             totalPrix += sousTotal;
-            //TODO : rendre le poids non nullable
             poids += (decimal)item.Poids;
 
             <tr>

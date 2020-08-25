@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace SiteMVC.ViewComponents {
     public class AvisViewComponent : ViewComponent {
         IRepository<Avis> _avisRepository;
-        // TODO : repenser l'organisation du view component ?
         public AvisViewComponent(IRepository<Avis> avisRepository) {
             _avisRepository = avisRepository;
         }

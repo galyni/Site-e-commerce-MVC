@@ -18,7 +18,7 @@ namespace SiteMVC
         public decimal? Hauteur { get; set; }
         public decimal? Longueur { get; set; }
         public decimal? Largeur { get; set; }
-        public decimal? Poids { get; set; }
+        public decimal Poids { get; set; }
         public int? Capacite { get; set; }
         public string Description { get; set; }
         public int? IdCouleur { get; set; }
