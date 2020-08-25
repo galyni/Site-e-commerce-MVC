@@ -57,10 +57,6 @@ namespace SiteMVC.Controllers {
         }
 
 
-        //// GET: PanierController/Details/5
-        //public ActionResult Details(int id) {
-        //    return View();
-        //}
         [HttpGet]
         public ActionResult Delete(int id) {
             string currentCartSerialized = HttpContext.Session.GetString("Cart");
@@ -80,7 +76,5 @@ namespace SiteMVC.Controllers {
             HttpContext.Session.SetString("Cart", currentCartSerialized);
             return RedirectToAction("SeeCart");
         }
-
-
     }
 }

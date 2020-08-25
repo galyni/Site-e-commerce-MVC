@@ -50,20 +50,21 @@ namespace SiteMVC.Controllers {
         public ActionResult TopProduits() {
             var top = _depotDetail.GetList()
                 .GroupBy(d => d.IdProduit)
-                .Select(group => new { Key = group.Key, Count = group.Count() })
-                .OrderByDescending(group => group.Count)
+                .Select(group => new { Key = group.Key, Somme = group.Sum(ligne=>ligne.Quantite) })
+                .OrderByDescending(group => group.Somme)
                 .Take(5)
                 .ToList();
             List<Produit> liste = new List<Produit>();
             foreach (var item in top) {
                 liste.Add(_depotProduits.GetById(item.Key));
-                ViewData[item.Key.ToString()] = item.Count;
+                ViewData[item.Key.ToString()] = item.Somme;
             }
             return View(liste);
         }
 
         [Authorize(Roles = "Administrator")]
         public ActionResult TopClients() {
+            // TODO : changer count en quantity + récupérer le nom
             var top = _depotCommandes.GetList()
                 .GroupBy(c => c.IdClient)
                 .Select(group => new { Key = group.Key, Total = group.Sum(ligne => ligne.Total) })
@@ -138,18 +139,6 @@ namespace SiteMVC.Controllers {
 
         //TODO : découper Validate en plusieurs fonctions, dont Create ?
 
-        // POST: CommandesController/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(int id) {
-        //    try {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch {
-        //        return View();
-        //    }
-        //}
-
         //POST: CommandesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -168,21 +157,6 @@ namespace SiteMVC.Controllers {
             }
         }
 
-        // GET: CommandesController/Delete/5
-        //public ActionResult Delete(int id) {
-        //    return View();
-        //}
 
-        // POST: CommandesController/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Delete(Commande commande) {
-        //    try {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch {
-        //        return View();
-        //    }
-        //}
     }
 }

@@ -25,12 +25,6 @@ namespace SiteMVC.Controllers {
             return View(liste);
         }
 
-
-        //public ActionResult Details(int id) {
-        //    return View(_repository.GetById(id));
-        //}
-
-
         public ActionResult Create() {
             ViewBag.IdProduit = new Repository<Produit>().GetList().Select(
                 p => new SelectListItem { Value = p.Id.ToString(), Text = p.Nom });

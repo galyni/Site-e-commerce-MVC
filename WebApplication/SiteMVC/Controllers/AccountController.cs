@@ -22,13 +22,11 @@ namespace SiteMVC.Controllers {
             _roleManager = roleManager;
         }
 
-        //[HttpGet]
-        //public ActionResult Register(string redirectUrl) {
-        //    ViewBag.RedirectUrl = redirectUrl;
-        //    ViewBag.Roles = new List<string>() {"User", "Administrator", "Moderator" }.Select(
-        //        r => new SelectListItem { Text = r, Value = r});
-        //    return View();
-        //}
+        [HttpGet]
+        public ActionResult Register(string redirectUrl) {
+            ViewBag.RedirectUrl = redirectUrl;
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel registerModel, string redirectUrl) {

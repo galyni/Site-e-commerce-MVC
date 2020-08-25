@@ -68,8 +68,6 @@ namespace SiteMVC.Controllers {
         // TODO : redirection si l'utilisateur a déjà donné son avis
         public ActionResult Create(int idProduit, int idDetail) {
             var model = new AvisViewModel() { produit = _produitRepository.GetById(idProduit) };
-            //WebsiteUser currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
-            //string userMail = await _userManager.GetEmailAsync(currentUser);
             ViewBag.IdClient = _detailRepository.GetById(idDetail).IdCommandeNavigation.IdClient;
             return View(model);
         }
@@ -94,43 +92,5 @@ namespace SiteMVC.Controllers {
                 return View();
             }
         }
-
-        // GET: Couleurs/Edit/5
-        //public ActionResult Edit(int id) {
-        //    Couleur couleur = _avisRepository.GetById(id);
-        //    return View(couleur);
-        //}
-
-        // POST: Couleurs/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(Couleur couleur) {
-        //    try {
-        //        _avisRepository.Update(couleur);
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch {
-        //        return View();
-        //    }
-        //}
-
-        // GET: Couleurs/Delete/5
-        //    public ActionResult Delete(int id) {
-        //        var item = _avisRepository.GetById(id);
-        //        return View(item);
-        //    }
-
-        //    // POST: Couleurs/Delete/5
-        //    [HttpPost]
-        //    [ValidateAntiForgeryToken]
-        //    public ActionResult Delete(Avis avis) {
-        //        try {
-        //            _avisRepository.Delete(avis);
-        //            return RedirectToAction(nameof(Index));
-        //        }
-        //        catch {
-        //            return View();
-        //        }
-        //    }
     }
 }
