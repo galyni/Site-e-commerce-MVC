@@ -34,7 +34,6 @@ namespace SiteMVC.Controllers {
             return View(liste);
         }
 
-        // TODO : rendre impossible la commande de produits dont le stock est zéro (incohérence avec la règle du champ ?)
         public ActionResult Details(int id) {
             string currentCartSerialized = HttpContext.Session.GetString("Cart");
             if (!currentCartSerialized.IsNullOrEmpty()) {

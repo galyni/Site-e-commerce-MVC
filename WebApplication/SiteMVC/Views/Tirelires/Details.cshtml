@@ -104,7 +104,13 @@
             }
         </div>
         <div class="form-field">
-            <input type="submit" value="Ajouter au panier" />
+            @if (stockActualise > 0) {
+                <input type="submit" value="Ajouter au panier" />
+            }
+            else {
+                <input type="submit" value="Produit épuisé" disabled />
+
+            }
         </div>
     </form>
 </div>
