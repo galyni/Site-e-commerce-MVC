@@ -5,10 +5,6 @@
 }
 
 <h1>IndexClient</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -55,7 +51,7 @@
                 @Html.DisplayFor(modelItem => item.IdStatutNavigation.Nom)
             </td>
             <td>
-                <a asp-action="Details" asp-route-idCommande="@item.Id">Details</a> |
+                <a asp-action="DetailsCommande" asp-route-idCommande="@item.Id">Details</a> |
             </td>
         </tr>
 }

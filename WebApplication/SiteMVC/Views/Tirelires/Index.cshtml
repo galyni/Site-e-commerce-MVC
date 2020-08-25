@@ -4,8 +4,6 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
 @if (User.IsInRole("Administrator")) {
     <p>
         <a asp-action="Create">Create New</a>

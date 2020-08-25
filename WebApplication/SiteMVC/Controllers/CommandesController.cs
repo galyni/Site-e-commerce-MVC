@@ -80,7 +80,6 @@ namespace SiteMVC.Controllers {
         }
 
         // GET: CommandesController/Details/5
-        [Route("Commandes/Details")]
         public ActionResult DetailsCommande(int idCommande) {
             var liste = _depotDetail.GetList().Where(d => d.IdCommande == idCommande);
             ViewBag.CommandeId = idCommande;

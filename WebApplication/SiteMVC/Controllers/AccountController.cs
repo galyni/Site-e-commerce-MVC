@@ -23,8 +23,7 @@ namespace SiteMVC.Controllers {
         }
 
         [HttpGet]
-        public ActionResult Register(string redirectUrl) {
-            ViewBag.RedirectUrl = redirectUrl;
+        public ActionResult Register() {
             return View();
         }
 
@@ -52,8 +51,7 @@ namespace SiteMVC.Controllers {
         }
 
         [HttpGet]
-        public ActionResult Login(string returnUrl) {
-            ViewBag.RedirectUrl = returnUrl;
+        public ActionResult Login() {
             return View();
         }
 
