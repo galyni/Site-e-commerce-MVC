@@ -1,0 +1,39 @@
+﻿@model SiteMVC.Commande
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Commande</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="IdClient" />
+            <input type="hidden" asp-for="DateCommande" />
+            <input type="hidden" asp-for="DateLivraison" />
+            <input type="hidden" asp-for="Total" />
+            <input type="hidden" asp-for="IdAdresse" />
+            <div class="form-group">
+                <label asp-for="IdStatut" class="control-label">Statut</label>
+                <select asp-for="IdStatut" class="form-control" asp-items="ViewBag.IdStatut"></select>
+                <span asp-validation-for="IdStatut" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="DetailsCommande" asp-route-idCommande="@Model.Id">Retour</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

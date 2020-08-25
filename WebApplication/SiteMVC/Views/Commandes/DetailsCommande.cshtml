@@ -52,11 +52,20 @@
     </tbody>
 </table>
 <div>
-    @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |*@
+    <button class="" data-toggle="modal" data-target="#commandeModal">Changer le statut</button>
     @if (User.IsInRole("Administrator")) {
         <a asp-action="Index">Back to List</a>
     }
     @if (User.IsInRole("User")) {
         <a asp-action="IndexClient">Back to List</a>
     }
+</div>
+<div id="commandeModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                @await Component.InvokeAsync("Commande", ViewBag.CommandeId)
+            </div>
+        </div>
+    </div>
 </div>

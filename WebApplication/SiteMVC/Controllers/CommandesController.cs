@@ -71,7 +71,7 @@ namespace SiteMVC.Controllers {
                 .Take(5)
                 .ToList();
             List<Client> liste = new List<Client>();
-            foreach(var item in top) {
+            foreach (var item in top) {
                 liste.Add(_depotClients.GetById(item.Key));
                 ViewData[item.Key.ToString()] = item.Total;
             }
@@ -83,6 +83,7 @@ namespace SiteMVC.Controllers {
         //TODO : supprimer vue Commandes/Details.cshtml
         public ActionResult DetailsCommande(int idCommande) {
             var liste = _depotDetail.GetList().Where(d => d.IdCommande == idCommande);
+            ViewBag.CommandeId = idCommande;
             return View(liste);
         }
 
@@ -145,22 +146,23 @@ namespace SiteMVC.Controllers {
         //    }
         //}
 
-        // GET: CommandesController/Edit/5
-        //public ActionResult Edit(int id) {
-        //    return View();
-        //}
-
-        // POST: CommandesController/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(int id, Commande commande) {
-        //    try {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch {
-        //        return View();
-        //    }
-        //}
+        //POST: CommandesController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // TODO : rôle supplémentaire qui aurait la responsabilité sur l'avancée de la commande
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Edit(Commande commande) {
+            try {
+                if (commande.IdStatut == 4) {
+                    commande.DateLivraison = DateTime.Now;
+                }
+                _depotCommandes.Update(commande);
+                return RedirectToAction(nameof(Index));
+            }
+            catch {
+                return View();
+            }
+        }
 
         // GET: CommandesController/Delete/5
         //public ActionResult Delete(int id) {
