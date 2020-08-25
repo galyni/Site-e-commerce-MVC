@@ -22,13 +22,15 @@ namespace SiteMVC.Controllers {
 
         // GET: Tirelires
         // TODO : rendre invisibles les produits désactivés
-        // TODO : afficher une liste d'avis pour les produits
         public IActionResult Index() {
             //var tireliresContext = _context.Produit.Include(p => p.IdCategorieNavigation).Include(p => p.IdCouleurNavigation).Include(p => p.IdFabricantNavigation).Include(p => p.IdFournisseurNavigation);
-            var liste = _produitRepository.GetList();
-            foreach (Produit p in liste) {
-                //_repository.GetPhoto(p);
-            }
+            var liste = _produitRepository.GetList().Where(p=>p.Statut);
+            return View(liste);
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public IActionResult DeactivatedList() {
+            var liste = _produitRepository.GetList().Where(p => !p.Statut);
             return View(liste);
         }
 
@@ -69,6 +71,22 @@ namespace SiteMVC.Controllers {
         public ActionResult Edit(int id) {
             GetNavigationProperties();
             return View(_produitRepository.GetById(id));
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Deactivate(int id) {
+           Produit produit = _produitRepository.GetById(id);
+            produit.Statut = false;
+            _produitRepository.Update(produit);
+            return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Reactivate(int id) {
+            Produit produit = _produitRepository.GetById(id);
+            produit.Statut = true;
+            _produitRepository.Update(produit);
+            return RedirectToAction("DeactivatedList");
         }
 
         [HttpPost]

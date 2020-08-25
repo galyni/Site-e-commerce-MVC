@@ -119,7 +119,7 @@ namespace SiteMVC.Controllers {
                 commande = _depotCommandes.Create(commande);
                 //TODO : factoriser ça... (ou TempData ?). Mais peut-être est-on obligés de repasser par là.
                 string currentCartSerialized = HttpContext.Session.GetString("Cart");
-                List<KeyValuePair<int, int>> currentCart = JsonConvert.DeserializeObject<List<KeyValuePair<int, int>>>(currentCartSerialized);
+                Dictionary<int, int> currentCart = JsonConvert.DeserializeObject<Dictionary<int, int>>(currentCartSerialized);
                 foreach (KeyValuePair<int, int> infosProduit in currentCart) {
                     Produit produit = _depotProduits.GetById(infosProduit.Key);
                     DetailCommande detailCommande = new DetailCommande() {
@@ -129,6 +129,8 @@ namespace SiteMVC.Controllers {
                         Quantite = infosProduit.Value
                     };
                     _depotDetail.Create(detailCommande);
+                    produit.Stock -= infosProduit.Value;
+                    _depotProduits.Update(produit);
                 }
             }
             // Pour vider le panier après la commande. Ou mieux vaut SetString("Cart", """) ?

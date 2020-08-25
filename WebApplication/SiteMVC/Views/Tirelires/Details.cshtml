@@ -2,6 +2,13 @@
 
 @{
     ViewData["Title"] = "Details";
+    int stockActualise;
+    if (ViewBag.QuantiteActuelle != null) {
+        stockActualise = Model.Stock - ViewBag.QuantiteActuelle;
+    }
+    else {
+        stockActualise = Model.Stock;
+    }
 }
 
 <h1>Details</h1>
@@ -65,12 +72,12 @@
     //imageDataUrl = string.Format("data:image/jpg;base64,{0}", imageBase64);
     string target = String.Concat("modalPhoto", photo.Id);
 
-<div>
-    <!--TODO : attributs liés à la modale directement dans la balise img + changement gestion photos-->
-    <!--TODO : moins de chargement des photos ?-->
+    <div>
+        <!--TODO : attributs liés à la modale directement dans la balise img + changement gestion photos-->
+        <!--TODO : moins de chargement des photos ?-->
 
-    <img class="thumbnail img-fluid rounded float-left" data-toggle="modal" data-target="#@target" src="@Url.Action("GetImage", "Photos", new { id = photo.Id })" />
-</div>
+        <img class="thumbnail img-fluid rounded float-left" data-toggle="modal" data-target="#@target" src="@Url.Action("GetImage", "Photos", new { id = photo.Id })" />
+    </div>
     <div id="@target" class="modal fade" role="dialog">
         <div class="modal-dialog">
             Modal content
@@ -89,9 +96,9 @@
         <div asp-validation-summary="All"></div>
         <div class="form-field">
             <label for="quantite">Quantité</label>
-            <input type="number" min="1" max="@Model.Stock" id="quantite" name="quantite" required value="1"/>
-            @{ 
-                if(ViewBag.QuantiteActuelle != null) {
+            <input type="number" min="1" max="@stockActualise" id="quantite" name="quantite" required value="1" />
+            @{
+                if (ViewBag.QuantiteActuelle != null) {
                     <p>Actuellement dans votre panier : @ViewBag.QuantiteActuelle</p>
                 }
             }
@@ -100,15 +107,18 @@
             <input type="submit" value="Ajouter au panier" />
         </div>
     </form>
-
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
 </div>
+
+@if (User.IsInRole("Administrator")) {
+    <a asp-action="Deactivate" asp-route-id="@Model.Id">Désactiver le produit</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+}
+<a asp-action="Index">Back to List</a>
 
 <div id="listeAvis">
     @await Component.InvokeAsync("Avis", new { couleurId = Model.IdCouleur, produitId = Model.Id })
 </div>
 
 <div id="galerieSimilaires">
-    @await Component.InvokeAsync("Galerie", new { couleurId = Model.IdCouleur, produitId = Model.Id } )
+    @await Component.InvokeAsync("Galerie", new { couleurId = Model.IdCouleur, produitId = Model.Id })
 </div>
