@@ -41,6 +41,10 @@ namespace SiteMVC.Controllers {
             return RedirectToAction("Index");
         }
 
+        public ActionResult Warning() {
+            return View();
+        }
+
         // GET: ClientController/Details/5
         public ActionResult Details(int id) {
             return View();

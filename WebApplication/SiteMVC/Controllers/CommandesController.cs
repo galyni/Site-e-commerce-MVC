@@ -103,6 +103,9 @@ namespace SiteMVC.Controllers {
                 HttpContext.Session.SetString("total", totalSerialized);
                 return RedirectToAction("Create", "Client", new { mail = userMail });
             }
+            else if (!client.Actif) {
+                return RedirectToAction("Warning","Client");
+            }
             else {
                 Commande commande = new Commande() {
                     IdClient = client.Id,
