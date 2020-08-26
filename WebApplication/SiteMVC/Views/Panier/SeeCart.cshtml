@@ -5,11 +5,8 @@
     ViewData["Title"] = "SeeCart";
     decimal totalPrix = 0, poids = 0, total;
 }
-<h1>SeeCart</h1>
+<h1>Votre panier</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -67,10 +64,10 @@
                     @*<a asp-action="Edit" asp-route-id="@item.Id">Changer la quantité</a> |*@
                 </td>
                 <td>
-                    <a asp-action="Delete" asp-controller="Panier" asp-route-id="@item.Id">Annuler la commande de cet objet</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-controller="Panier" asp-route-id="@item.Id">Annuler la commande de cet objet</a>
                 </td>
                 <td>
-                    <a asp-action="Details" asp-controller="Tirelires" asp-route-id="@item.Id">Voir la page de l'objet</a> |
+                    <a class="btn btn-primary" asp-action="Details" asp-controller="Tirelires" asp-route-id="@item.Id">Voir la page de l'objet</a> |
                 </td>
             </tr>
         }
@@ -88,10 +85,10 @@
 <div>
     @if (!User.Identity.IsAuthenticated) {
         // TODO : mise en forme des boutons
-        <p>Vous devez <a class="nav-link text-dark" data-toggle="modal" data-target="#registerModal">créer un compte</a> ou vous <a class="nav-link text-dark" data-toggle="modal" data-target="#loginModal">identifier</a> pour commander.</p>
+        <p>Vous devez <a class="btn btn-secondary" data-toggle="modal" data-target="#registerModal">créer un compte</a> ou vous <a class="btn btn-secondary" data-toggle="modal" data-target="#loginModal">identifier</a> pour commander.</p>
     }
     else if (User.IsInRole("User")) {
-        <a class="nav-link text-dark" asp-area="" asp-controller="Commandes" asp-action="Validate" asp-route-total="@total">Valider la commande</a>
+        <a class="btn btn-success" asp-area="" asp-controller="Commandes" asp-action="Validate" asp-route-total="@total">Valider la commande</a>
     }
     else {
         <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Log out</a>

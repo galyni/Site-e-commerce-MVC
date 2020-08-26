@@ -11,10 +11,8 @@
     }
 }
 
-<h1>Details</h1>
-
 <div>
-    <h4>@Html.DisplayFor(model => model.Nom)</h4>
+    <h1>@Html.DisplayFor(model => model.Nom)</h1>
     <h6>Référence produit : @Html.DisplayFor(model => model.Id)</h6>
     <hr />
     <dl class="row">
@@ -104,7 +102,7 @@
         </div>
         <div class="form-field">
             @if (stockActualise > 0) {
-                <input type="submit" value="Ajouter au panier" />
+                <input class="btn btn-success" type="submit" value="Ajouter au panier" />
             }
             else {
                 <input type="submit" value="Produit épuisé" disabled />
@@ -118,7 +116,6 @@
     <a asp-action="Deactivate" asp-route-id="@Model.Id">Désactiver le produit</a>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
 }
-<a asp-action="Index">Back to List</a>
 
 <div id="listeAvis">
     @await Component.InvokeAsync("Avis", new { couleurId = Model.IdCouleur, produitId = Model.Id })
@@ -126,4 +123,8 @@
 
 <div id="galerieSimilaires">
     @await Component.InvokeAsync("Galerie", new { couleurId = Model.IdCouleur, produitId = Model.Id })
+</div>
+<hr />
+<div>
+    <a class="btn btn-info float-right" asp-action="Index">Revenir à la galerie</a>
 </div>

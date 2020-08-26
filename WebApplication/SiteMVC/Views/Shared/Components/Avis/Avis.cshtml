@@ -3,26 +3,27 @@
 
 <h4>Quelques avis :</h4>
 
-@foreach (var item in Model) {
-    <div class="float-left">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(modelItem => item.Note)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(modelItem => item.Date)
-                    </th>
-                    <th>
-                    @Html.DisplayNameFor(modelItem => item.Contenu)
-                    </th>
-                    <th>
-                        Client
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
+
+<div class="float-left">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Note
+                </th>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Avis
+                </th>
+                <th>
+                    Client
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Note)
@@ -37,7 +38,7 @@
                         @Html.DisplayFor(modelItem => item.IdClientNavigation.Nom)
                     </td>
                 </tr>
-            </tbody>
-        </table>
-    </div>
-}
+            }
+        </tbody>
+    </table>
+</div>
